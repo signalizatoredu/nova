@@ -30,7 +30,7 @@ namespace Controllers
             $directoryType = DirectoryType::findFirst($id);
 
             if (!$directoryType)
-                return $this->notFoundResponse();
+                return $this->forward("error/not_found");
 
             $data = new \stdClass();
             $data->directory_type = $directoryType;
@@ -59,7 +59,7 @@ namespace Controllers
             $directory = Directory::findFirst($id);
 
             if (!$directory)
-                return $this->notFoundResponse();
+                return $this->forward("error/not_found");
 
             $data = new \stdClass();
             $data->directory = $models;
@@ -83,7 +83,7 @@ namespace Controllers
 
         public function saveAction($id)
         {
-            return $this->notFoundResponse();
+            return $this->forward("error/not_found");
         }
 
         public function deleteAction($id)
@@ -93,7 +93,7 @@ namespace Controllers
             $directory = Directory::findFirst($id);
 
             if (!$directory)
-                return $this->notFoundResponse();
+                return $this->forward("error/not_found");
 
             $directory->delete();
         }

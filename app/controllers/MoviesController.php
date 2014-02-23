@@ -35,7 +35,7 @@ namespace Controllers
             $movie = Movie::findFirst($id);
 
             if (!$movie)
-                return $this->notFoundResponse();
+                return $this->forward("error/not_found");
 
             $model = new \stdClass();
             $model->movie = $movie;

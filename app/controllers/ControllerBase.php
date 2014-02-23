@@ -4,11 +4,13 @@ namespace Controllers
 {
     class ControllerBase extends \Phalcon\Mvc\Controller
     {
-        protected function forward($url)
+        protected function forward($uri)
         {
             $uriParts = explode("/", $uri);
 
-            return $this->dispatcher->forward(
+            var_dump($uriParts);
+
+            $this->dispatcher->forward(
                 array(
                     "controller" => $uriParts[0],
                     "action" => $uriParts[1]
@@ -43,15 +45,6 @@ namespace Controllers
 
             return $response;
 
-        }
-
-        protected function notFoundResponse()
-        {
-            $response = new \Phalcon\Http\Response();
-            $response->setStatusCode(404, "Not Found");
-            $response->setContent("Sorry, the page doesn't exist.");
-
-            return $response;
         }
     }
 }
