@@ -1,0 +1,5 @@
+{
+    "require": {
+        "glamorous/tmdb-php-api": "dev-master"
+    }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "Nebula",
+  "devDependencies": {
+    "grunt": "latest",
+    "matchdep": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-sass": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-browser-dependencies": "latest",
+    "grunt-ember-templates": "latest"
+  },
+  "browserDependencies": {
+    "options": {},
+    "requirejs": {
+      "dir": "public/js/lib/require",
+      "files": [{
+        "require.js": "http://requirejs.org/docs/release/2.1.10/minified/require.js"
+      },{
+        "require-text.js": "https://raw.github.com/requirejs/text/latest/text.js"
+      },{
+        "require-domready.js": "https://raw.github.com/requirejs/domReady/latest/domReady.js"
+      }]
+    },
+    "jquery": {
+      "dir": "public/js/lib/jquery",
+      "files": [{
+        "jquery.js": "http://code.jquery.com/jquery-2.1.0.min.js"
+      }]
+    },
+    "ember": {
+      "dir": "public/js/lib/ember",
+      "files": [{
+        "ember.js": "http://builds.emberjs.com/tags/v1.5.0-beta.1/ember.js"
+      },{
+        "ember-data.js": "http://builds.emberjs.com/beta/ember-data.js"
+      }]
+    },
+    "handlebars": {
+        "dir": "public/js/lib/handlebars",
+        "files": [{
+            "handlebars.js": "http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"
+        }]
+    },
+    "css": {
+        "dir": "public/css",
+        "files": [{
+            "normalize.css": "http://necolas.github.com/normalize.css/3.0.0/normalize.css"
+        }]
+    }
+  }
+}
