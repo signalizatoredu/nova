@@ -14,5 +14,6 @@ npm-debug.log
 
 # Phalcon
 .phalcon
+*.volt.php
 app/config/dbconfig.php
 app/migrations/
