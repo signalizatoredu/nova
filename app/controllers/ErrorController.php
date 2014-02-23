@@ -15,11 +15,11 @@ namespace Controllers
                 $error = new \stdClass();
                 $error->error = $errorMessage;
 
+                $response->setContentType("application/json", "UTF-8");
                 $response->setContent(json_encode($error, JSON_PRETTY_PRINT));
             } else {
                 $response->setContent($errorMessage);
             }
-
 
             return $response;
         }
