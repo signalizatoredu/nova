@@ -1,0 +1,17 @@
+# Aptana
+.project
+.settings
+
+# Composer
+composer.phar
+composer.lock
+
+# Node / Grunt
+node_modules/
+npm-debug.log
+.sass-cache
+
+# Phalcon
+.phalcon
+app/config/dbconfig.php
+app/migrations/
