@@ -51,8 +51,29 @@ try {
      * Setting default controller namespace
      */
     $di->set("dispatcher", function() {
+
+        // Return 404 when the controller or action is not found
+        $eventsManager = new Phalcon\Events\Manager();
+
+        $eventsManager->attach("dispatch", function($event, $dispatcher, $exception) {
+            if ($event->getType() == 'beforeException') {
+                switch ($exception->getCode()) {
+                    case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                    case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                        $dispatcher->forward(array(
+                            "controller" => "error",
+                            "action" => "notFound"
+                        ));
+
+                        return false;
+                }
+            }
+        });
+
         $dispatcher = new \Phalcon\Mvc\Dispatcher();
         $dispatcher->setDefaultNamespace("Controllers");
+        $dispatcher->setEventsManager($eventsManager);
+
         return $dispatcher;
     });
 
