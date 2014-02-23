@@ -1,0 +1,48 @@
+<?php echo $this->getContent(); ?>
+<div align="right">
+    <?php echo \Phalcon\Tag::linkTo(array("user/new", "Create User")) ?>
+</div>
+
+<div align="center">
+    <h1>Search user</h1>
+    <?php echo \Phalcon\Tag::form(array("user/search")) ?>
+    <table align="center">
+        <tr>
+            <td align="right">
+                <label for="id">Id</label>
+            </td>
+            <td align="left">
+            <?php echo \Phalcon\Tag::textField(array("id", "type" => "numeric")) ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <label for="username">Username</label>
+            </td>
+            <td align="left">
+            <?php echo \Phalcon\Tag::textField(array("username", "size" => 30)) ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <label for="password">Password</label>
+            </td>
+            <td align="left">
+            <?php echo \Phalcon\Tag::textField(array("password", "size" => 30)) ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <label for="create_time">Create Of Time</label>
+            </td>
+            <td align="left">
+                <?php echo \Phalcon\Tag::textField(array("create_time", "type" => "date")) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td><td><?php echo \Phalcon\Tag::submitButton(array("Search")) ?></td>
+        </tr>
+    </table>
+</form>
+</div>

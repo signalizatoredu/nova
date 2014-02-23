@@ -1,0 +1,18 @@
+<ul>
+    {{#each directory in controller }}
+        <li><b>{{directory.directoryType.type}}</b> {{directory.path}} <button {{action "delete" directory}}>Delete</button></li>
+    {{else}}
+        <li>No directories</li>
+    {{/each}}
+<li>
+    {{view Ember.Select
+           contentBinding="directoryTypes"
+           optionValuePath="content.id"
+           optionLabelPath="content.type"
+           prompt="Please select a type"
+           selection=selectedDirectoryType}}
+    {{input type="text" value=path placeholder="Enter a path ..."}}
+    <button {{action "createDirectory"}}>Create</button>
+</li>
+</ul>
+<div>Directories: {{directoriesCount}}</div>
