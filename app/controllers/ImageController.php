@@ -17,6 +17,9 @@ namespace Controllers
 
             $movie = Movie::findFirst($id);
 
+            if (!$movie)
+                return $this->forward("error/not_found");
+
             $image = new \Phalcon\Image\Adapter\GD($movie->poster);
             $image->resize($width, $height);
 
