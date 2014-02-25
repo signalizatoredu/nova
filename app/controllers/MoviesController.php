@@ -12,7 +12,14 @@ namespace Controllers
         public function indexAction()
         {
             $model = new \stdClass();
-            $model->movies = Movie::find()->toArray();
+            $model->movies = array();
+
+            $movies = Movie::find();
+
+            foreach ($movies as $movie) {
+                $movie->afterFetch();
+                $model->movies[] = $movie;
+            }
 
             return $this->jsonResponse($model);
         }
