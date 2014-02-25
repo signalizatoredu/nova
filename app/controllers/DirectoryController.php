@@ -10,15 +10,8 @@ namespace Controllers
 
         public function findAllDirectoryTypesAction()
         {
-            $models = array();
-
-            foreach (DirectoryType::find() as $type) {
-                $models[] = $type;
-            }
-
             $data = new \stdClass();
-            $data->directory_types = $models;
-
+            $data->directory_types = DirectoryType::find()->toArray();
 
             return $this->jsonResponse($data);
         }
@@ -40,14 +33,8 @@ namespace Controllers
 
         public function findAllAction()
         {
-            $models = array();
-
-            foreach (Directory::find() as $directory) {
-                $models[] = $directory;
-            }
-
             $data = new \stdClass();
-            $data->directories = $models;
+            $data->directories = Directory::find()->toArray();
 
             return $this->jsonResponse($data);
         }
@@ -62,7 +49,7 @@ namespace Controllers
                 return $this->forward("error/not_found");
 
             $data = new \stdClass();
-            $data->directory = $models;
+            $data->directory = $directory;
 
             return $this->jsonResponse($data);
         }

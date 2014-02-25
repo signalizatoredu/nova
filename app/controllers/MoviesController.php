@@ -11,19 +11,8 @@ namespace Controllers
 
         public function indexAction()
         {
-            $movies = Movie::find();
-            $data = array();
-
-            foreach ($movies as $movie) {
-                $m = new \Models\Model();
-                $m->id = $movie->id;
-                $m->title = $movie->title;
-
-                $data[] = $movie;
-            }
-
             $model = new \stdClass();
-            $model->movies = $data;
+            $model->movies = Movie::find()->toArray();
 
             return $this->jsonResponse($model);
         }
