@@ -2,14 +2,15 @@
 
 namespace Nova\Controllers
 {
-    use Nova\Models\Directory,
+    use Nova\Object,
+        Nova\Models\Directory,
         Nova\Models\DirectoryType;
 
     class DirectoryController extends ControllerBase
     {
         public function findAllDirectoryTypesAction()
         {
-            $data = new \stdClass();
+            $data = new Object();
             $data->directory_types = DirectoryType::find()->toArray();
 
             return $this->jsonResponse($data);
@@ -24,7 +25,7 @@ namespace Nova\Controllers
             if (!$directoryType)
                 return $this->forward("error/not_found");
 
-            $data = new \stdClass();
+            $data = new Object();
             $data->directory_type = $directoryType;
 
             return $this->jsonResponse($data);
@@ -32,7 +33,7 @@ namespace Nova\Controllers
 
         public function findAllAction()
         {
-            $data = new \stdClass();
+            $data = new Object();
             $data->directories = Directory::find()->toArray();
 
             return $this->jsonResponse($data);
@@ -47,7 +48,7 @@ namespace Nova\Controllers
             if (!$directory)
                 return $this->forward("error/not_found");
 
-            $data = new \stdClass();
+            $data = new Object();
             $data->directory = $directory;
 
             return $this->jsonResponse($data);

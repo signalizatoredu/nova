@@ -2,6 +2,8 @@
 
 namespace Nova\Controllers
 {
+    use Nova\Object;
+
     class ErrorController extends ControllerBase
     {
         protected function notFoundResponse($code, $statusMessage, $errorMessage)
@@ -12,7 +14,7 @@ namespace Nova\Controllers
             $response->setStatusCode($code, $statusMessage);
 
             if ($this->request->isAjax()) {
-                $error = new \stdClass();
+                $error = new Object();
                 $error->error = $errorMessage;
 
                 $response->setContentType("application/json", "utf-8");

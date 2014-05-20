@@ -2,7 +2,8 @@
 
 namespace Nova\Controllers
 {
-    use Nova\Models\Directory,
+    use Nova\Object,
+        Nova\Models\Directory,
         Nova\Models\DirectoryType,
         Nova\Models\Movie;
 
@@ -11,7 +12,7 @@ namespace Nova\Controllers
 
         public function indexAction()
         {
-            $model = new \stdClass();
+            $model = new Object();
             $model->movies = array();
 
             $movies = Movie::find();
@@ -33,7 +34,7 @@ namespace Nova\Controllers
             if (!$movie)
                 return $this->forward("error/not_found");
 
-            $model = new \stdClass();
+            $model = new Object();
             $model->movie = $movie;
 
             return $this->jsonResponse($model);
