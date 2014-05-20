@@ -55,7 +55,7 @@ try {
 
     // Setting up the router
     $di->set("router", function() {
-        require __DIR__."/app/config/routes.php";
+        $router = include __DIR__."/app/config/routes.php";
         return $router;
     });
 
