@@ -14,7 +14,7 @@ namespace Nova\Routes
 
             $this->setPrefix("/directories");
 
-            $this->addGet("/", array(
+            $this->addGet("", array(
                 "action" => "findAll"
             ));
 
@@ -23,7 +23,7 @@ namespace Nova\Routes
                 "id" => 1
             ));
 
-            $this->addPost("/", array(
+            $this->addPost("", array(
                 "action" => "create"
             ));
 

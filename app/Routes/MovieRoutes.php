@@ -13,6 +13,8 @@ namespace Nova\Routes
 
             $this->setPrefix("/movies");
 
+            $this->addGet("", array("action" => "index"));
+
             $this->addGet("/:int", array(
                 "action" => "find",
                 "id" => 1

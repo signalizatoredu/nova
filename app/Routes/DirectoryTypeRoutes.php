@@ -13,7 +13,7 @@ namespace Nova\Routes
 
             $this->setPrefix("/directory_types");
 
-            $this->addGet("/", array(
+            $this->addGet("", array(
                 "action" => "findAllDirectoryTypes"
             ));
 
