@@ -1,10 +1,10 @@
 <?php
 
-namespace Controllers
+namespace Nova\Controllers
 {
-    use Models\Directory,
-        Models\DirectoryType,
-        Models\Movie;
+    use Nova\Models\Directory,
+        Nova\Models\DirectoryType,
+        Nova\Models\Movie;
 
     class MoviesController extends ControllerBase
     {
@@ -48,7 +48,7 @@ namespace Controllers
             foreach ($directoryType->directory as $directory) {
                 $movieFiles = array();
 
-                $directoryInfo = new \IO\FileInfo($directory->path);
+                $directoryInfo = new \Nova\IO\FileInfo($directory->path);
                 $movieFiles = $this->recursiveDirectoryWalk($directoryInfo, $movieFiles);
 
                 foreach ($movieFiles as $file) {
@@ -83,13 +83,13 @@ namespace Controllers
 
             $movie = Movie::findFirst($id);
 
-            $scraper = new \Scrapers\FileMovieScraper();
+            $scraper = new \Nova\Scrapers\FileMovieScraper();
             $scraper->scrape($movie, $this->request->getPost("options"));
 
             return $this->jsonResponse($movie);
         }
 
-        private function recursiveDirectoryWalk(\IO\FileInfo $directory, $dataArray)
+        private function recursiveDirectoryWalk(\Nova\IO\FileInfo $directory, $dataArray)
         {
             $children = $directory->getChildren();
 
@@ -115,4 +115,3 @@ namespace Controllers
 
     }
 }
-

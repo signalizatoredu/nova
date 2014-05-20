@@ -1,8 +1,8 @@
 <?php
 
-namespace Scrapers
+namespace Nova\Scrapers
 {
-    use Models\Movie;
+    use Nova\Models\Movie;
 
     abstract class MovieScraper
     {

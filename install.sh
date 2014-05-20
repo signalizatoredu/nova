@@ -4,18 +4,18 @@ echo "Enter database configuration: "
 read -p "Host     : " host
 read -p "Username : " username
 read -p "Password : " password
-read -p "Schema   : " name
+read -p "Schema   : " dbname
 
 cat <<EOF > "app/config/dbconfig.php"
 <?php
 
 return new \Phalcon\Config(array(
-    'database' => array(
-        'adapter'  => 'Mysql',
-        'host'     => '${host}',
-        'username' => '${username}',
-        'password' => '${password}',
-        'name'     => '${name}',
+    "database" => array(
+        "adapter"  => "Mysql",
+        "host"     => "${host}",
+        "username" => "${username}",
+        "password" => "${password}",
+        "dbname"   => "${dbname}",
     )
 ));
 

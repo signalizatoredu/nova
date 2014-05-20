@@ -1,8 +1,8 @@
 <?php
 
-namespace IO
+namespace Nova\IO
 {
-    use Encoders\IEncoder;
+    use Nova\Encoders\IEncoder;
 
     class FileStorage
     {

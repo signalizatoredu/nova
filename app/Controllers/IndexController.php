@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers
+namespace Nova\Controllers
 {
     class IndexController extends ControllerBase
     {

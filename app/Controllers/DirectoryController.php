@@ -1,13 +1,12 @@
 <?php
 
-namespace Controllers
+namespace Nova\Controllers
 {
-    use Models\Directory,
-        Models\DirectoryType;
+    use Nova\Models\Directory,
+        Nova\Models\DirectoryType;
 
     class DirectoryController extends ControllerBase
     {
-
         public function findAllDirectoryTypesAction()
         {
             $data = new \stdClass();

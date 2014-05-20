@@ -1,6 +1,6 @@
 <?php
 
-namespace Models
+namespace Nova\Models
 {
     class Directory extends Model
     {
@@ -28,10 +28,10 @@ namespace Models
          */
         public function initialize()
         {
-            $this->hasMany("id", "Models\Movie", "directory_id", array(
+            $this->hasMany("id", "Nova\Models\Movie", "directory_id", array(
                 "alias" => "movie"
             ));
-            $this->belongsTo("directory_type_id", "Models\DirectoryType", "id", array(
+            $this->belongsTo("directory_type_id", "Nova\Models\DirectoryType", "id", array(
                 "alias" => "directory_type"
             ));
         }

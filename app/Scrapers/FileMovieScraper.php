@@ -1,11 +1,11 @@
 <?php
 
-namespace Scrapers
+namespace Nova\Scrapers
 {
-    use Encoders\IEncoder,
-        Encoders\XmlMovieEncoder,
-        Models\Movie,
-        IO\FileStorage;
+    use Nova\Encoders\IEncoder,
+        Nova\Encoders\XmlMovieEncoder,
+        Nova\Models\Movie,
+        Nova\IO\FileStorage;
 
     class FileMovieScraper extends MovieScraper
     {

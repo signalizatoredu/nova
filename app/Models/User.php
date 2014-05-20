@@ -1,6 +1,6 @@
 <?php
 
-namespace Models
+namespace Nova\Models
 {
     class User extends Model
     {

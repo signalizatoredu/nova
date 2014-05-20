@@ -1,11 +1,11 @@
 <?php
 
-namespace Encoders
+namespace Nova\Encoders
 {
-    use Encoders\IEncoder,
-        Models\Model,
-        Models\Actor,
-        Models\Movie;
+    use Nova\Encoders\IEncoder,
+        Nova\Models\Model,
+        Nova\Models\Actor,
+        Nova\Models\Movie;
 
     class XmlMovieEncoder implements IEncoder
     {

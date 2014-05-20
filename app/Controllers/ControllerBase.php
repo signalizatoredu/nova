@@ -1,14 +1,12 @@
 <?php
 
-namespace Controllers
+namespace Nova\Controllers
 {
     class ControllerBase extends \Phalcon\Mvc\Controller
     {
         protected function forward($uri)
         {
             $uriParts = explode("/", $uri);
-
-            var_dump($uriParts);
 
             $this->dispatcher->forward(
                 array(
@@ -20,31 +18,29 @@ namespace Controllers
 
         protected function getJsonRequest()
         {
-            $data = $this->request->getRawBody();
-            return json_decode($data);
+            return $this->request->getJsonRawBody();
         }
 
         protected function imageResponse(\Phalcon\Image\Adapter $image)
-            {
-                $this->view->disable();
+        {
+            $this->view->disable();
 
-                $response = new \Phalcon\Http\Response();
-                $response->setContentType($image->getMime());
-                $response->setContent($image->render());
+            $response = new \Phalcon\Http\Response();
+            $response->setContentType($image->getMime());
+            $response->setContent($image->render());
 
-                return $response;
-            }
+            return $response;
+        }
 
         protected function jsonResponse($data)
         {
             $this->view->disable();
 
             $response = new \Phalcon\Http\Response();
-            $response->setContentType("application/json", "UTF-8");
-            $response->setContent(json_encode($data, JSON_PRETTY_PRINT));
+            $response->setContentType("application/json", "utf-8");
+            $response->setJsonContent($data, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
 
             return $response;
-
         }
     }
 }

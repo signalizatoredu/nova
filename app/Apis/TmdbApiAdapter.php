@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Apis;
+namespace Nova\Apis;
 
-use App\Models\Actor;
-use App\Models\Movie;
+use Nova\Models\Actor;
+use Nova\Models\Movie;
 
 class TmdbApiAdapter implements ITmdbApi
 {

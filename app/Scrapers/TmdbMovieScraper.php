@@ -1,6 +1,6 @@
 <?php
 
-namespace Scrapers
+namespace Nova\Scrapers
 {
     class TmdbMovieScraper extends MovieScraper
     {

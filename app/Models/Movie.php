@@ -1,8 +1,8 @@
 <?php
 
-namespace Models
+namespace Nova\Models
 {
-    use IO\FileInfo;
+    use Nova\IO\FileInfo;
 
     class Movie extends Model
     {
@@ -34,7 +34,7 @@ namespace Models
 
         public function initialize()
         {
-            $this->belongsTo("directory_id", "Models\Directory", "id", array(
+            $this->belongsTo("directory_id", "Nova\Models\Directory", "id", array(
                 "alias" => "directory"
             ));
         }
@@ -72,7 +72,7 @@ namespace Models
         public function afterFetch()
         {
             if ($this->hasNfo()) {
-                $scraper = new \Scrapers\FileMovieScraper();
+                $scraper = new \Nova\Scrapers\FileMovieScraper();
                 $scraper->scrape($this);
             } else {
                 $this->title = $this->getFilename();

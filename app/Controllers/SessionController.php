@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers
+namespace Nova\Controllers
 {
-    use Models\User;
+    use Nova\Models\User;
 
     class SessionController extends ControllerBase
     {

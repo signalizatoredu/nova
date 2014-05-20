@@ -1,6 +1,6 @@
 <?php
 
-namespace IO
+namespace Nova\IO
 {
     class FileInfo implements IFileInfo
     {

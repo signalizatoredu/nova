@@ -1,6 +1,6 @@
 <?php
 
-namespace Encoders
+namespace Nova\Encoders
 {
     interface IEncoder
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Controllers
+namespace Nova\Controllers
 {
-    use Models\ImageHandler,
-        Models\Movie;
+    use Nova\Models\ImageHandler,
+        Nova\Models\Movie;
 
     class ImageController extends ControllerBase
     {
