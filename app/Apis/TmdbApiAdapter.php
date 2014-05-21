@@ -12,12 +12,12 @@ class TmdbApiAdapter implements ITmdbApi
     const IMAGE_TYPE_POSTER = 'poster';
     const IMAGE_SIZE_ORIGINAL = 'original';
 
-    private $_tmdb;
-    private $_movie;
+    private $tmdb;
+    private $movie;
 
     public function __construct($apiKey)
     {
-        $this->_tmdb = new \TMDb($apiKey, 'en', true);
+        $this->tmdb = new \TMDb($apiKey, 'en', true);
     }
 
     private function createMovie($data)
@@ -148,7 +148,7 @@ class TmdbApiAdapter implements ITmdbApi
     public function getMovieById($id, $full = false)
     {
         // TODO: Look over the possibilty to use &append_to_response=releases,trailers,casts,images on the api
-        $data = $this->_tmdb->getMovie($id);
+        $data = $this->tmdb->getMovie($id);
         $movie = $this->createMovie($data);
 
         if ($full) {
@@ -177,9 +177,9 @@ class TmdbApiAdapter implements ITmdbApi
             }
         }
 
-        $this->_movie = $movie;
+        $this->movie = $movie;
 
-        return $this->_movie;
+        return $this->movie;
     }
 
     public function getMovieCast($id)
@@ -197,7 +197,7 @@ class TmdbApiAdapter implements ITmdbApi
         $thumbKey = 'profile_path';
         $jobKey = 'job';
 
-        $data = $this->_tmdb->getMovieCast($id);
+        $data = $this->tmdb->getMovieCast($id);
 
         if (array_key_exists($castKey, $data)) {
             foreach ($data[$castKey] as $cast) {
@@ -259,7 +259,7 @@ class TmdbApiAdapter implements ITmdbApi
         $certificationKey = 'certification';
         $mpaaCountryCode = 'US';
 
-        $info = $this->_tmdb->getMovieReleases($id);
+        $info = $this->tmdb->getMovieReleases($id);
 
         if (array_key_exists($countriesKey, $info)) {
 
@@ -292,7 +292,7 @@ class TmdbApiAdapter implements ITmdbApi
         $postersKey = 'posters';
         $pathKey = 'file_path';
 
-        $data = $this->_tmdb->getMovieImages($id);
+        $data = $this->tmdb->getMovieImages($id);
 
         if (isset($data[$backdropsKey])) {
             foreach ($data[$backdropsKey] as $image) {
@@ -319,7 +319,7 @@ class TmdbApiAdapter implements ITmdbApi
     public function getMovieTrailers($id)
     {
         $trailers = array();
-        $data = $this->_tmdb->getMovieTrailers($id);
+        $data = $this->tmdb->getMovieTrailers($id);
 
         // Array keys
         $youtubeKey = 'youtube';
@@ -339,7 +339,7 @@ class TmdbApiAdapter implements ITmdbApi
     public function search($query)
     {
         $movies = array();
-        $results = $this->_tmdb->searchMovie($query);
+        $results = $this->tmdb->searchMovie($query);
 
         $results = $results['results'];
 
@@ -352,6 +352,6 @@ class TmdbApiAdapter implements ITmdbApi
 
     private function getImagePath($path, $type, $size = self::IMAGE_SIZE_ORIGINAL)
     {
-        return$this->_tmdb->getImageUrl($path, $type, $size);
+        return$this->tmdb->getImageUrl($path, $type, $size);
     }
 }

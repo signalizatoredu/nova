@@ -4,7 +4,7 @@ namespace Nova\IO;
 
 class FileInfo implements IFileInfo
 {
-    private $_fileInfo;
+    private $fileInfo;
 
     /**
      * Creates a new FileInfo object
@@ -14,7 +14,7 @@ class FileInfo implements IFileInfo
      */
     public function __construct($filename)
     {
-        $this->_fileInfo = new \SplFileInfo($filename);
+        $this->fileInfo = new \SplFileInfo($filename);
 
         if (!file_exists($filename) && !$this->isLink()) {
             throw new \Exception("The file or directory $filename don't exist.");
@@ -52,7 +52,7 @@ class FileInfo implements IFileInfo
      */
     public function getExtension()
     {
-        return $this->_fileInfo->getExtension();
+        return $this->fileInfo->getExtension();
     }
 
     /**
@@ -62,7 +62,7 @@ class FileInfo implements IFileInfo
      */
     public function getFilename()
     {
-        return $this->_fileInfo->getFilename();
+        return $this->fileInfo->getFilename();
     }
 
     /**
@@ -73,7 +73,7 @@ class FileInfo implements IFileInfo
     public function getFilenameWithoutExtension()
     {
         $extension = sprintf(".%s", $this->getExtension());
-        return $this->_fileInfo->getBasename($extension);
+        return $this->fileInfo->getBasename($extension);
     }
 
     /**
@@ -83,7 +83,7 @@ class FileInfo implements IFileInfo
      */
     public function getPath()
     {
-        return $this->_fileInfo->getPathname();
+        return $this->fileInfo->getPathname();
     }
 
     /**
@@ -93,7 +93,7 @@ class FileInfo implements IFileInfo
      */
     public function getRealPath()
     {
-        return $this->_fileInfo->getRealPath();
+        return $this->fileInfo->getRealPath();
     }
 
     /**
@@ -138,7 +138,7 @@ class FileInfo implements IFileInfo
      */
     public function isDir()
     {
-        return $this->_fileInfo->isDir();
+        return $this->fileInfo->isDir();
     }
 
     /**
@@ -148,7 +148,7 @@ class FileInfo implements IFileInfo
      */
     public function isFile()
     {
-        return $this->_fileInfo->isFile();
+        return $this->fileInfo->isFile();
     }
 
     /**
@@ -158,7 +158,7 @@ class FileInfo implements IFileInfo
      */
     public function isLink()
     {
-        return $this->_fileInfo->isLink();
+        return $this->fileInfo->isLink();
     }
 
     /**
@@ -168,7 +168,7 @@ class FileInfo implements IFileInfo
      */
     public function isExecutable()
     {
-        return $this->_fileInfo->isExecutable();
+        return $this->fileInfo->isExecutable();
     }
 
     /**
@@ -178,7 +178,7 @@ class FileInfo implements IFileInfo
      */
     public function isReadable()
     {
-        return $this->_fileInfo->isReadable();
+        return $this->fileInfo->isReadable();
     }
 
     /**
@@ -188,6 +188,6 @@ class FileInfo implements IFileInfo
      */
     public function isWriteable()
     {
-        return $this->_fileInfo->isWriteable();
+        return $this->fileInfo->isWriteable();
     }
 }

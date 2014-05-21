@@ -9,8 +9,8 @@ use Nova\IO\FileStorage;
 
 class FileMovieScraper extends MovieScraper
 {
-    private $_encoder;
-    private $_movie;
+    private $encoder;
+    private $movie;
 
     public function __construct(IEncoder $encoder = null)
     {
@@ -18,152 +18,152 @@ class FileMovieScraper extends MovieScraper
             $encoder = new XmlMovieEncoder();
         }
 
-        $this->_encoder = $encoder;
+        $this->encoder = $encoder;
     }
 
     public function initialize(Movie $movie)
     {
-        $fileStorage = new FileStorage($this->_encoder, $movie->getNfoPath());
-        $this->_movie = $fileStorage->read();
+        $fileStorage = new FileStorage($this->encoder, $movie->getNfoPath());
+        $this->movie = $fileStorage->read();
     }
 
     public function getTitle()
     {
-        if (isset($this->_movie->title)) {
-            return $this->_movie->title;
+        if (isset($this->movie->title)) {
+            return $this->movie->title;
         }
     }
 
     public function getOriginalTitle()
     {
-        if (isset($this->_movie->original_title)) {
-            return $this->_movie->original_title;
+        if (isset($this->movie->original_title)) {
+            return $this->movie->original_title;
         }
     }
 
     public function getSortTitle()
     {
-        if (isset($this->_movie->sort_title)) {
-            return $this->_movie->sort_title;
+        if (isset($this->movie->sort_title)) {
+            return $this->movie->sort_title;
         }
     }
 
     public function getCollection()
     {
-        if (isset($this->_movie->collection)) {
-            return $this->_movie->collection;
+        if (isset($this->movie->collection)) {
+            return $this->movie->collection;
         }
     }
 
     public function getRating()
     {
-        if (isset($this->_movie->rating)) {
-            return $this->_movie->rating;
+        if (isset($this->movie->rating)) {
+            return $this->movie->rating;
         }
     }
 
     public function getYear()
     {
-        if (isset($this->_movie->year)) {
-            return $this->_movie->year;
+        if (isset($this->movie->year)) {
+            return $this->movie->year;
         }
     }
 
     public function getOutline()
     {
-        if (isset($this->_movie->outline)) {
-            return $this->_movie->outline;
+        if (isset($this->movie->outline)) {
+            return $this->movie->outline;
         }
     }
 
     public function getPlot()
     {
-        if (isset($this->_movie->plot)) {
-            return $this->_movie->plot;
+        if (isset($this->movie->plot)) {
+            return $this->movie->plot;
         }
     }
 
     public function getTagline()
     {
-        if (isset($this->_movie->tagline)) {
-            return $this->_movie->tagline;
+        if (isset($this->movie->tagline)) {
+            return $this->movie->tagline;
         }
     }
 
     public function getRuntime()
     {
-        if (isset($this->_movie->runtime)) {
-            return $this->_movie->runtime;
+        if (isset($this->movie->runtime)) {
+            return $this->movie->runtime;
         }
     }
 
     public function getCertification()
     {
-        if (isset($this->_movie->certification)) {
-            return $this->_movie->certification;
+        if (isset($this->movie->certification)) {
+            return $this->movie->certification;
         }
     }
 
     public function getImdbId()
     {
-        if (isset($this->_movie->imdb_id)) {
-            return $this->_movie->imdb_id;
+        if (isset($this->movie->imdb_id)) {
+            return $this->movie->imdb_id;
         }
     }
 
     public function getTmdbId()
     {
-        if (isset($this->_movie->tmdb_id)) {
-            return $this->_movie->tmdb_id;
+        if (isset($this->movie->tmdb_id)) {
+            return $this->movie->tmdb_id;
         }
     }
 
     public function getTrailer()
     {
-        if (isset($this->_movie->trailer)) {
-            return $this->_movie->trailer;
+        if (isset($this->movie->trailer)) {
+            return $this->movie->trailer;
         }
     }
 
     public function getGenres()
     {
-        if (isset($this->_movie->genres)) {
-            return $this->_movie->genres;
+        if (isset($this->movie->genres)) {
+            return $this->movie->genres;
         }
     }
 
     public function getStudios()
     {
-        if (isset($this->_movie->studios)) {
-            return $this->_movie->studios;
+        if (isset($this->movie->studios)) {
+            return $this->movie->studios;
         }
     }
 
     public function getCountries()
     {
-        if (isset($this->_movie->countries)) {
-            return $this->_movie->countries;
+        if (isset($this->movie->countries)) {
+            return $this->movie->countries;
         }
     }
 
     public function getCredits()
     {
-        if (isset($this->_movie->credits)) {
-            return $this->_movie->credits;
+        if (isset($this->movie->credits)) {
+            return $this->movie->credits;
         }
     }
 
     public function getDirectors()
     {
-        if (isset($this->_movie->directors)) {
-            return $this->_movie->directors;
+        if (isset($this->movie->directors)) {
+            return $this->movie->directors;
         }
     }
 
     public function getActors()
     {
-        if (isset($this->_movie->actors)) {
-            return $this->_movie->actors;
+        if (isset($this->movie->actors)) {
+            return $this->movie->actors;
         }
     }
 

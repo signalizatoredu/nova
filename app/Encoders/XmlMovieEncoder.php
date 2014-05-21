@@ -58,8 +58,8 @@ class XmlMovieEncoder implements IEncoder
 
         foreach ($data->actors as $actor) {
             $writer->startElement('actor');
-            $writer->writeElement('name',  $actor->name);
-            $writer->writeElement('role',  $actor->role);
+            $writer->writeElement('name', $actor->name);
+            $writer->writeElement('role', $actor->role);
             $writer->writeElement('thumb', $actor->thumb);
             $writer->endElement();
         }

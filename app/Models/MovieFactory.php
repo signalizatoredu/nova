@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Models
+namespace Nova\Models;
 
 use Movie;
 
