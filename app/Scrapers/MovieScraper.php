@@ -10,9 +10,10 @@ abstract class MovieScraper
     const IDENTIFIER_TYPE_NFO  = 1;
     const IDENTIFIER_TYPE_TMDB = 2;
 
+    protected $movie;
+
     public function scrape(Movie $movie, $options = null)
     {
-        //$this->movie = $movie;
         $this->initialize($movie);
 
         if (is_array($options) || $options == null) {
