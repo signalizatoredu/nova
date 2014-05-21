@@ -1,4 +1,4 @@
-miniature-octo-batman
-=====================
+Nova
+====
 
-Phalcon PHP test project
+A media manager project in PHP and Phalcon
