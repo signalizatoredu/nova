@@ -10,7 +10,6 @@ use Nova\IO\FileStorage;
 class FileMovieScraper extends MovieScraper
 {
     private $encoder;
-    private $movie;
 
     public function __construct(IEncoder $encoder = null)
     {

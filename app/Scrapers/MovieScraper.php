@@ -12,7 +12,7 @@ abstract class MovieScraper
 
     public function scrape(Movie $movie, $options = null)
     {
-        $this->movie = $movie;
+        //$this->movie = $movie;
         $this->initialize($movie);
 
         if (is_array($options) || $options == null) {
