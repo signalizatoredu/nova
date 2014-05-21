@@ -1,10 +1,9 @@
 <?php
 
-namespace Nova\Encoders
+namespace Nova\Encoders;
+
+interface IEncoder
 {
-    interface IEncoder
-    {
-        public function encode($data);
-        public function decode($data);
-    }
+    public function encode($data);
+    public function decode($data);
 }

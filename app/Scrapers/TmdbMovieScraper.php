@@ -1,12 +1,11 @@
 <?php
 
-namespace Nova\Scrapers
+namespace Nova\Scrapers;
+
+class TmdbMovieScraper extends MovieScraper
 {
-    class TmdbMovieScraper extends MovieScraper
+    public function getIdentifierType()
     {
-        public function getIdentifierType()
-        {
-            return MovieScraper::IDENTIFIER_TYPE_TMDB;
-        }
+        return MovieScraper::IDENTIFIER_TYPE_TMDB;
     }
 }

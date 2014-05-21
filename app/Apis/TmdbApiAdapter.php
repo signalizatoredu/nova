@@ -164,8 +164,9 @@ class TmdbApiAdapter implements ITmdbApi
             $movie->setDirectors($cast['directors']);
             $movie->setCertification($certification);
 
-            if (!empty($trailers))
+            if (!empty($trailers)) {
                 $movie->setTrailer(reset($trailers));
+            }
 
             if (!empty($backdrops)) {
                 $movie->setBackdrops($backdrops);
@@ -234,7 +235,7 @@ class TmdbApiAdapter implements ITmdbApi
 
                         if ($job === 'Director') {
                             $directors[] = $name;
-                        } else if ($job === 'Writer') {
+                        } elseif ($job === 'Writer') {
                             $credits[] = $name;
                         }
                     }

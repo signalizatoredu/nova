@@ -1,6 +1,8 @@
 <?php
 
-namespace Nova
+namespace Nova;
+
+class Object
 {
-    class Object {}
+
 }

@@ -1,32 +1,30 @@
 <?php
 
-namespace Nova\Models
+namespace Nova\Models;
+
+class User extends Model
 {
-    class User extends Model
-    {
+    /**
+     * @var integer
+     *
+     */
+    protected $id;
 
-        /**
-         * @var integer
-         *
-         */
-        protected $id;
+    /**
+     * @var string
+     *
+     */
+    protected $username;
 
-        /**
-         * @var string
-         *
-         */
-        protected $username;
+    /**
+     * @var string
+     *
+     */
+    protected $password;
 
-        /**
-         * @var string
-         *
-         */
-        protected $password;
-
-        /**
-         * @var string
-         *
-         */
-        protected $create_time;
-    }
+    /**
+     * @var string
+     *
+     */
+    protected $create_time;
 }

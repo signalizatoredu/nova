@@ -1,118 +1,116 @@
 <?php
 
-namespace Nova\Controllers
+namespace Nova\Controllers;
+
+use Nova\Object;
+use Nova\Models\Directory;
+use Nova\Models\DirectoryType;
+use Nova\Models\Movie;
+
+class MoviesController extends ControllerBase
 {
-    use Nova\Object,
-        Nova\Models\Directory,
-        Nova\Models\DirectoryType,
-        Nova\Models\Movie;
-
-    class MoviesController extends ControllerBase
+    public function indexAction()
     {
+        $model = new Object();
+        $model->movies = array();
 
-        public function indexAction()
-        {
-            $model = new Object();
-            $model->movies = array();
+        $movies = Movie::find();
 
-            $movies = Movie::find();
-
-            foreach ($movies as $movie) {
-                $movie->afterFetch();
-                $model->movies[] = $movie;
-            }
-
-            return $this->jsonResponse($model);
+        foreach ($movies as $movie) {
+            $movie->afterFetch();
+            $model->movies[] = $movie;
         }
 
-        public function findAction($id)
-        {
-            $id = $this->filter->sanitize($id, array("int"));
+        return $this->jsonResponse($model);
+    }
 
-            $movie = Movie::findFirst($id);
+    public function findAction($id)
+    {
+        $id = $this->filter->sanitize($id, array("int"));
 
-            if (!$movie)
-                return $this->forward("error/not_found");
+        $movie = Movie::findFirst($id);
 
-            $model = new Object();
-            $model->movie = $movie;
-
-            return $this->jsonResponse($model);
+        if (!$movie) {
+            return $this->forward("error/not_found");
         }
 
-        public function scanAction()
-        {
-            $directoryType = DirectoryType::findFirstByType("Movie");
+        $model = new Object();
+        $model->movie = $movie;
 
-            $movies = array();
+        return $this->jsonResponse($model);
+    }
 
-            foreach ($directoryType->directory as $directory) {
-                $movieFiles = array();
+    public function scanAction()
+    {
+        $directoryType = DirectoryType::findFirstByType("Movie");
 
-                $directoryInfo = new \Nova\IO\FileInfo($directory->path);
-                $movieFiles = $this->recursiveDirectoryWalk($directoryInfo, $movieFiles);
+        $movies = array();
 
-                foreach ($movieFiles as $file) {
-                    // TODO: Check path and directory_id
-                    $path = str_replace($directory->path, "", $file);
+        foreach ($directoryType->directory as $directory) {
+            $movieFiles = array();
 
-                    $dbMovie = Movie::findFirst(array(
-                        "conditions" => "path = ?1 AND directory_id = ?2",
-                        "bind" => array(1 => $path, 2 => $directory->id)
-                    ));
+            $directoryInfo = new \Nova\IO\FileInfo($directory->path);
+            $movieFiles = $this->recursiveDirectoryWalk($directoryInfo, $movieFiles);
 
-                    if (!$dbMovie) {
-                        $movie = new Movie();
-                        $movie->setPath($path);
-                        $movie->directory = $directory;
-                        $movie->afterFetch();
-                        $movie->save();
-                        $movies[] = $movie;
-                    }
+            foreach ($movieFiles as $file) {
+                // TODO: Check path and directory_id
+                $path = str_replace($directory->path, "", $file);
 
+                $dbMovie = Movie::findFirst(array(
+                    "conditions" => "path = ?1 AND directory_id = ?2",
+                    "bind" => array(1 => $path, 2 => $directory->id)
+                ));
+
+                if (!$dbMovie) {
+                    $movie = new Movie();
+                    $movie->setPath($path);
+                    $movie->directory = $directory;
+                    $movie->afterFetch();
+                    $movie->save();
+                    $movies[] = $movie;
                 }
 
             }
 
-
-            return $this->jsonResponse($movies);
         }
 
-        public function scrapeAction($id)
-        {
-            $id = $this->filter->sanitize($id, array("int"));
 
-            $movie = Movie::findFirst($id);
+        return $this->jsonResponse($movies);
+    }
 
-            $scraper = new \Nova\Scrapers\FileMovieScraper();
-            $scraper->scrape($movie, $this->request->getPost("options"));
+    public function scrapeAction($id)
+    {
+        $id = $this->filter->sanitize($id, array("int"));
 
-            return $this->jsonResponse($movie);
-        }
+        $movie = Movie::findFirst($id);
 
-        private function recursiveDirectoryWalk(\Nova\IO\FileInfo $directory, $dataArray)
-        {
-            $children = $directory->getChildren();
+        $scraper = new \Nova\Scrapers\FileMovieScraper();
+        $scraper->scrape($movie, $this->request->getPost("options"));
 
-            foreach ($children as $child) {
-                if ($child->isDir()) {
-                    $dataArray = $this->recursiveDirectoryWalk($child, $dataArray);
-                } else {
-                    $extension = strtolower($child->getExtension());
-                    switch ($extension) {
-                        case "avi":
-                        case "mkv":
-                        case "mp4":
-                            $dataArray[] = $child->getRealPath();
-                            break;
-                        default:
-                            break;
-                    }
+        return $this->jsonResponse($movie);
+    }
+
+    private function recursiveDirectoryWalk(\Nova\IO\FileInfo $directory, $dataArray)
+    {
+        $children = $directory->getChildren();
+
+        foreach ($children as $child) {
+            if ($child->isDir()) {
+                $dataArray = $this->recursiveDirectoryWalk($child, $dataArray);
+            } else {
+                $extension = strtolower($child->getExtension());
+                switch ($extension) {
+                    case "avi":
+                    case "mkv":
+                    case "mp4":
+                        $dataArray[] = $child->getRealPath();
+                        break;
+                    default:
+                        break;
                 }
             }
-
-            return $dataArray;
         }
 
+        return $dataArray;
     }
 }

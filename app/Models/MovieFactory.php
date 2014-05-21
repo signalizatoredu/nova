@@ -1,14 +1,13 @@
 <?php
 
 namespace Nova\Models
+
+use Movie;
+
+class MovieFactory
 {
-    use Movie;
-
-    class MovieFactory
+    public function createFromTmdb()
     {
-        public function createFromTmdb()
-        {
 
-        }
     }
 }

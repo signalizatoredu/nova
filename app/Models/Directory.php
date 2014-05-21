@@ -1,40 +1,38 @@
 <?php
 
-namespace Nova\Models
+namespace Nova\Models;
+
+class Directory extends Model
 {
-    class Directory extends Model
+    /**
+     * @var integer
+     *
+     */
+    public $id;
+
+    /**
+     * @var string
+     *
+     */
+    public $path;
+
+    /**
+     * @var integer
+     *
+     */
+    public $directory_type_id;
+
+
+    /**
+     * Initializer method for model.
+     */
+    public function initialize()
     {
-        /**
-         * @var integer
-         *
-         */
-        public $id;
-
-        /**
-         * @var string
-         *
-         */
-        public $path;
-
-        /**
-         * @var integer
-         *
-         */
-        public $directory_type_id;
-
-
-        /**
-         * Initializer method for model.
-         */
-        public function initialize()
-        {
-            $this->hasMany("id", "Nova\Models\Movie", "directory_id", array(
-                "alias" => "movie"
-            ));
-            $this->belongsTo("directory_type_id", "Nova\Models\DirectoryType", "id", array(
-                "alias" => "directory_type"
-            ));
-        }
-
+        $this->hasMany("id", "Nova\Models\Movie", "directory_id", array(
+            "alias" => "movie"
+        ));
+        $this->belongsTo("directory_type_id", "Nova\Models\DirectoryType", "id", array(
+            "alias" => "directory_type"
+        ));
     }
 }

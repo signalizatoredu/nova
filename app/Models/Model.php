@@ -1,9 +1,8 @@
 <?php
 
-namespace Nova\Models
-{
-    class Model extends \Phalcon\Mvc\Model
-    {
+namespace Nova\Models;
 
-    }
+class Model extends \Phalcon\Mvc\Model
+{
+
 }

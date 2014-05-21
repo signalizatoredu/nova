@@ -1,29 +1,29 @@
 <?php
 
-namespace Nova\Controllers
+namespace Nova\Controllers;
+
+use Nova\Models\ImageHandler;
+use Nova\Models\Movie;
+
+class ImageController extends ControllerBase
 {
-    use Nova\Models\ImageHandler,
-        Nova\Models\Movie;
-
-    class ImageController extends ControllerBase
+    public function posterAction($id, $width, $height)
     {
-        public function posterAction($id, $width, $height)
-        {
-            $width = $this->filter->sanitize($width, "int");
-            $width = (int)$width;
+        $width = $this->filter->sanitize($width, "int");
+        $width = (int)$width;
 
-            $height = $this->filter->sanitize($height, "int");
-            $height = (int)$height;
+        $height = $this->filter->sanitize($height, "int");
+        $height = (int)$height;
 
-            $movie = Movie::findFirst($id);
+        $movie = Movie::findFirst($id);
 
-            if (!$movie)
-                return $this->forward("error/not_found");
-
-            $image = new \Phalcon\Image\Adapter\GD($movie->poster);
-            $image->resize($width, $height);
-
-            return $this->imageResponse($image);
+        if (!$movie) {
+            return $this->forward("error/not_found");
         }
+
+        $image = new \Phalcon\Image\Adapter\GD($movie->poster);
+        $image->resize($width, $height);
+
+        return $this->imageResponse($image);
     }
 }
