@@ -1,5 +1,6 @@
 {
     "require": {
+        "phalcon/incubator": "dev-master",
         "glamorous/tmdb-php-api": "dev-master"
     }
 }
