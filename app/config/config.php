@@ -7,13 +7,9 @@ $config = new \Phalcon\Config(array(
         "viewsDir"       => __DIR__ . "/../../app/Views/",
         "pluginsDir"     => __DIR__ . "/../../app/Plugins/",
         "libraryDir"     => __DIR__ . "/../../app/Library/",
+        "cacheDir"       => __DIR__ . "/../../app/Cache/",
         "baseUri"        => "/",
     ),
-    "models" => array(
-        "metadata" => array(
-            "adapter" => "Memory"
-        )
-    )
 ));
 
 $dbConfig = include(__DIR__."/dbconfig.php");
