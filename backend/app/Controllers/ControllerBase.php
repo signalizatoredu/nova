@@ -40,6 +40,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $response->setContentType("application/json", "utf-8");
         $response->setJsonContent($data, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
 
+        // Temporary fix, find a better place for this
+        $response->setHeader("Access-Control-Allow-Origin", "*");
+
         return $response;
     }
 }
