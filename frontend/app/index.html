@@ -3,21 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NovaFrontend</title>
+    <title>Nova</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{BASE_TAG}}
 
-    <link rel="stylesheet" href="assets/nova-frontend.css">
+    <link rel="stylesheet" href="assets/nova.css">
   </head>
   <body>
     <script>
       window.ENV = {{ENV}};
     </script>
-    <script src="assets/nova-frontend.js"></script>
+    <script src="assets/nova.js"></script>
     <script>
-      window.NovaFrontend = require('nova-frontend/app')['default'].create(ENV.APP);
+      window.Nova = require('nova/app')['default'].create(ENV.APP);
     </script>
   </body>
 </html>

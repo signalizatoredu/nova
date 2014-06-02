@@ -1,7 +1,7 @@
 /* global require */
 
-var Application = require('nova-frontend/app')['default'];
-var Router = require('nova-frontend/router')['default'];
+var Application = require('nova/app')['default'];
+var Router = require('nova/router')['default'];
 
 export default function startApp(attrs) {
   var App;

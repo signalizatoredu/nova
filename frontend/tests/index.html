@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NovaFrontend Tests</title>
+    <title>Nova Tests</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{BASE_TAG}}
 
-    <link rel="stylesheet" href="assets/nova-frontend.css">
+    <link rel="stylesheet" href="assets/nova.css">
     <link rel="stylesheet" href="assets/qunit.css">
     <style>
       #ember-testing-container {
@@ -36,11 +36,11 @@
       window.ENV = {{ENV}};
     </script>
     <script src="assets/qunit.js"></script>
-    <script src="assets/nova-frontend.js"></script>
+    <script src="assets/nova.js"></script>
     <script src="testem.js"></script>
     <script>
-      require('nova-frontend/tests/test-helper');
-      require('nova-frontend/tests/test-loader');
+      require('nova/tests/test-helper');
+      require('nova/tests/test-loader');
     </script>
   </body>
 </html>
