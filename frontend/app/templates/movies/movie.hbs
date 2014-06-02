@@ -1,0 +1,35 @@
+<h2>{{title}}</h2>
+<p>{{poster-image poster=id}}</p>
+<p><strong>Rating:</strong> {{rating}}</p>
+<p><strong>Year:</strong> {{year}}</p>
+<p><strong>Runtime:</strong> {{runtime}}</p>
+<p><strong>Certification:</strong> {{certification}}</p>
+<p><strong>Rating:</strong> {{rating}}</p>
+<h6>Genres</h6>
+<ul>
+{{#each genre in genres }}
+    <li>{{genre}}</li>
+{{else}}
+    <li>No genres ... :(</li>
+{{/each}}
+</ul>
+<h6>Directors</h6>
+<ul>
+{{#each director in directors }}
+    <li>{{director}}</li>
+{{else}}
+    <li>No directors ... :(</li>
+{{/each}}
+</ul>
+<h6>Actors</h6>
+<ul>
+{{#each actor in actors }}
+    <li>{{actor.name}}</li>
+{{else}}
+    <li>No genres ... :(</li>
+{{/each}}
+</ul>
+<h5>Tagline</h5>
+<p>{{tagline}}</p>
+<h5>Overview</h5>
+<p>{{plot}}</p>

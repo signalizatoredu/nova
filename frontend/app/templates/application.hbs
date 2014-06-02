@@ -1,0 +1,11 @@
+{{! This is our main template }}
+<nav class="menu">
+    <ul>
+        <li>{{#link-to "index"}} Main {{/link-to}}</li>
+        <li>{{#link-to "movies"}} Movies {{/link-to}}</li>
+        <li>{{#link-to "settings"}} Settings {{/link-to}}</li>
+    </ul>
+</nav>
+<main>
+    {{outlet}}
+</main>
