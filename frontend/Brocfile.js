@@ -30,5 +30,7 @@ app.import('vendor/ic-ajax/dist/named-amd/main.js', {
   ]
 });
 
+// Import ember-simple-auth
+app.import('vendor/ember-simple-auth/ember-simple-auth.js');
 
 module.exports = app.toTree();
