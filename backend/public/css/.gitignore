@@ -1,0 +1,5 @@
+# Ignore all css files
+*.css
+
+# except
+!kube.css
