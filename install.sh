@@ -6,7 +6,7 @@ read -p "Username : " username
 read -p "Password : " password
 read -p "Schema   : " dbname
 
-cat <<EOF > "app/config/dbconfig.php"
+cat <<EOF > "backend/app/config/dbconfig.php"
 <?php
 
 return new \Phalcon\Config(array(
@@ -18,9 +18,21 @@ return new \Phalcon\Config(array(
         "dbname"   => "${dbname}",
     )
 ));
-
 EOF
 
-echo "Migrating database.."
-phalcon migration run
+echo "Which address will your API have?"
+read -p "Development : " development_host
+read -p "Production  : " production_host
+
+cat <<EOF > "frontend/config/api.js"
+module.exports = {
+    "development": {
+        host: "${development_host}"
+    },
+    "production": {
+        host: "${production_host}"
+    }
+};
+EOF
+
 echo "Done!"
