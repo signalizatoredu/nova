@@ -1,0 +1,10 @@
+# Composer
+vendor/
+composer.phar
+composer.lock
+
+# Phalcon
+.phalcon
+*.volt.php
+dbconfig.php
+app/migrations/
