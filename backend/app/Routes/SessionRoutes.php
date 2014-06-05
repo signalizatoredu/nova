@@ -7,8 +7,8 @@ class SessionRoutes extends \Phalcon\Mvc\Router\Group
     public function initialize()
     {
         $this->setPaths(array(
-            "controller" => "Session",
             "namespace" => "Nova\Controllers",
+            "controller" => "session",
         ));
 
         $this->setPrefix("/");

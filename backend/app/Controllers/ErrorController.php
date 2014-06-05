@@ -30,4 +30,9 @@ class ErrorController extends ControllerBase
     {
         return $this->notFoundResponse(404, "Not Found", "Sorry, the page doesn't exist.");
     }
+
+    public function forbiddenAction()
+    {
+        return $this->notFoundResponse(403, "Forbidden", "Forbidden.");
+    }
 }

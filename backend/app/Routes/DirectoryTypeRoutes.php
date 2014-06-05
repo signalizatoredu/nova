@@ -7,18 +7,18 @@ class DirectoryTypeRoutes extends \Phalcon\Mvc\Router\Group
     public function initialize()
     {
         $this->setPaths(array(
-            "controller" => "Directory",
             "namespace" => "Nova\Controllers",
+            "controller" => "directory_type",
         ));
 
         $this->setPrefix("/directory_types");
 
         $this->addGet("", array(
-            "action" => "findAllDirectoryTypes"
+            "action" => "index"
         ));
 
         $this->addGet("/:int", array(
-            "action" => "findDirectoryType",
+            "action" => "find",
             "id" => 1
         ));
     }

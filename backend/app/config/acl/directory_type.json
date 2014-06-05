@@ -1,0 +1,10 @@
+{
+    "index": [
+        "guest",
+        "user"
+    ],
+    "findAll": [
+        "guest",
+        "user"
+    ]
+}

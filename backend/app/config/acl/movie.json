@@ -1,0 +1,19 @@
+{
+    "index": [
+        "user",
+        "guest"
+    ],
+    "find": [
+        "user",
+        "guest"
+    ],
+    "scan": [
+        "user"
+    ],
+    "scan": [
+        "user"
+    ],
+    "scrape": [
+        "user"
+    ]
+}

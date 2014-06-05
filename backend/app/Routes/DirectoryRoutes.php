@@ -7,14 +7,14 @@ class DirectoryRoutes extends \Phalcon\Mvc\Router\Group
     public function initialize()
     {
         $this->setPaths(array(
-            "controller" => "Directory",
             "namespace" => "Nova\Controllers",
+            "controller" => "directory",
         ));
 
         $this->setPrefix("/directories");
 
         $this->addGet("", array(
-            "action" => "findAll"
+            "action" => "index"
         ));
 
         $this->addGet("/:int", array(

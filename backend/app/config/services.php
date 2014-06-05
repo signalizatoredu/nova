@@ -1,12 +1,15 @@
 <?php
 
-use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\DI\FactoryDefault;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
+use Phalcon\Mvc\Url as UrlResolver;
+use Phalcon\Mvc\View;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+
+use Nova\Plugins\Security;
 
 // The FactoryDefault Dependency Injector automatically register the
 // right services providing a full stack framework
@@ -17,6 +20,22 @@ $di->set("router", function () {
     $router = include __DIR__ . "/router.php";
 
     return $router;
+});
+
+// Setting up the dispatcher
+$di->set("dispatcher", function () use ($di) {
+
+    $eventsManager = $di->getShared("eventsManager");
+
+    $security = new Security($di);
+
+    // Listen for events
+    $eventsManager->attach("dispatch", $security);
+
+    $dispatcher = new Dispatcher();
+    $dispatcher->setEventsManager($eventsManager);
+
+    return $dispatcher;
 });
 
 // The URL component is used to generate all kind of urls in the application

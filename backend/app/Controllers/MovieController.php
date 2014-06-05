@@ -7,7 +7,7 @@ use Nova\Models\Directory;
 use Nova\Models\DirectoryType;
 use Nova\Models\Movie;
 
-class MoviesController extends ControllerBase
+class MovieController extends ControllerBase
 {
     public function indexAction()
     {

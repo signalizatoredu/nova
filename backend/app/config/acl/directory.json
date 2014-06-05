@@ -1,0 +1,19 @@
+{
+    "index": [
+        "user",
+        "guest"
+    ],
+    "find": [
+        "user",
+        "guest"
+    ],
+    "create": [
+        "user"
+    ],
+    "save": [
+        "user"
+    ],
+    "delete": [
+        "user"
+    ]
+}

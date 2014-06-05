@@ -8,31 +8,7 @@ use Nova\Models\DirectoryType;
 
 class DirectoryController extends ControllerBase
 {
-    public function findAllDirectoryTypesAction()
-    {
-        $data = new Object();
-        $data->directory_types = DirectoryType::find()->toArray();
-
-        return $this->jsonResponse($data);
-    }
-
-    public function findDirectoryTypeAction($id)
-    {
-        $id = $this->filter->sanitize($id, array("int"));
-
-        $directoryType = DirectoryType::findFirst($id);
-
-        if (!$directoryType) {
-            return $this->forward("error/not_found");
-        }
-
-        $data = new Object();
-        $data->directory_type = $directoryType;
-
-        return $this->jsonResponse($data);
-    }
-
-    public function findAllAction()
+    public function indexAction()
     {
         $data = new Object();
         $data->directories = Directory::find()->toArray();

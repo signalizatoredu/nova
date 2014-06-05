@@ -20,7 +20,7 @@ class SessionController extends ControllerBase
             $username = $this->request->getPost("username");
             $password = $this->request->getPost("password");
 
-            $user = User::findByFirstUsername($username);
+            $user = User::findFirstByUsername($username);
 
             if ($user) {
                 if ($this->security->checkHash($password, $user->password)) {

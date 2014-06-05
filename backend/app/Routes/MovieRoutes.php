@@ -7,8 +7,8 @@ class MovieRoutes extends \Phalcon\Mvc\Router\Group
     public function initialize()
     {
         $this->setPaths(array(
-            "controller" => "Movies",
             "namespace" => "Nova\Controllers",
+            "controller" => "movie",
         ));
 
         $this->setPrefix("/movies");
