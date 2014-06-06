@@ -4,7 +4,6 @@ namespace Nova\Controllers;
 
 use Nova\Object;
 use Nova\Models\Directory;
-use Nova\Models\DirectoryType;
 
 class DirectoryController extends ControllerBase
 {
