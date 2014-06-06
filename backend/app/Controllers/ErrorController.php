@@ -2,37 +2,32 @@
 
 namespace Nova\Controllers;
 
+use Nova\Http\StatusCode as HttpStatusCode;
 use Nova\Object;
 
 class ErrorController extends ControllerBase
 {
-    protected function notFoundResponse($code, $statusMessage, $errorMessage)
-    {
-        $this->view->disable();
-
-        $response = new \Phalcon\Http\Response();
-        $response->setStatusCode($code, $statusMessage);
-
-        if ($this->request->isAjax()) {
-            $error = new Object();
-            $error->error = $errorMessage;
-
-            $response->setContentType("application/json", "utf-8");
-            $response->setJsonContent($error, JSON_PRETTY_PRINT);
-        } else {
-            $response->setContent($errorMessage);
-        }
-
-        return $response;
-    }
-
     public function notFoundAction()
     {
-        return $this->notFoundResponse(404, "Not Found", "Sorry, the page doesn't exist.");
+        $message = "404, the requested URL "
+                 . $this->router->getRewriteUri()
+                 . " was not found on this server.";
+
+        return $this->statusCodeResponse(
+            HttpStatusCode::NOT_FOUND,
+            $message
+        );
     }
 
     public function forbiddenAction()
     {
-        return $this->notFoundResponse(403, "Forbidden", "Forbidden.");
+        $message = "Forbidden. You don't have permissions to access "
+                 . $this->router->getRewriteUri()
+                 . " on this server.";
+
+        return $this->statusCodeResponse(
+            HttpStatusCode::FORBIDDEN,
+            $message
+        );
     }
 }

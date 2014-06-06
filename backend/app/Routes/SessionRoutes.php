@@ -13,12 +13,16 @@ class SessionRoutes extends \Phalcon\Mvc\Router\Group
 
         $this->setPrefix("/");
 
-        $this->addPost("/login", array(
-            "action" => "login"
+        $this->addPost("/authentication", array(
+            "action" => "authenticate"
         ));
 
-        $this->addGet("/logout", array(
-            "action" => "logout"
+        $this->addDelete("/authentication", array(
+            "action" => "deauthenticate"
+        ));
+
+        $this->addPost("/register", array(
+            "action" => "register"
         ));
     }
 }
