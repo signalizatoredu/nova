@@ -27,7 +27,7 @@ class AuthToken extends Model
      *
      * @var string
      */
-    protected $expirary_date;
+    protected $expiration_date;
 
     /**
      *
@@ -80,9 +80,9 @@ class AuthToken extends Model
      * @param string $expirary_date
      * @return $this
      */
-    public function setExpiraryDate($expirary_date)
+    public function setExpirationDate($expirary_date)
     {
-        $this->expirary_date = $expirary_date;
+        $this->expiration_date = $expiration_date;
 
         return $this;
     }
@@ -135,9 +135,9 @@ class AuthToken extends Model
      *
      * @return string
      */
-    public function getExpiraryDate()
+    public function getExpirationDate()
     {
-        return $this->expirary_date;
+        return $this->expiration_date;
     }
 
     /**
