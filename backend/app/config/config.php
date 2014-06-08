@@ -8,6 +8,7 @@ $config = new \Phalcon\Config(array(
         "pluginsDir"     => __DIR__ . "/../../app/Plugins/",
         "libraryDir"     => __DIR__ . "/../../app/Library/",
         "cacheDir"       => __DIR__ . "/../../app/Cache/",
+        "logsDir"        => __DIR__ . "/../../app/Logs/",
         "baseUri"        => "/",
     ),
 ));

@@ -1,9 +1,11 @@
 {
     "authenticate": [
+        "user",
         "guest"
     ],
     "deauthenticate": [
-        "user"
+        "user",
+        "guest"
     ],
     "register": [
         "guest",

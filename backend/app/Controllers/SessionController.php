@@ -3,6 +3,7 @@
 namespace Nova\Controllers;
 
 use Nova\Http\StatusCode as HttpStatusCode;
+use Nova\Models\AuthToken;
 use Nova\Models\User;
 use Nova\Object;
 
@@ -28,12 +29,36 @@ class SessionController extends ControllerBase
 
             if ($user) {
                 if ($this->security->checkHash($password, $user->getPassword())) {
-                    $this->registerSession($user);
+                    $authToken = new AuthToken();
 
-                    return $this->statusCodeResponse(
-                        HttpStatusCode::OK,
-                        "Authentication successful"
-                    );
+                    $authToken->setUserId($user->getId());
+                    $authToken->setSeries(AuthToken::generateUuid());
+                    $authToken->setToken(AuthToken::generateUuid());
+
+                    $date = new \DateTime("now", new \DateTimeZone("UTC"));
+                    $date->add(\DateInterval::createFromDateString("+20 minutes"));
+
+                    $authToken->setExpirationDate($date->format('Y-m-d H:i:s'));
+
+                    if (!$authToken->save()) {
+                        foreach ($authToken->getMessages() as $message) {
+                            $this->logger->log("Error when saving AuthToken: " . $message);
+                        }
+
+                        return $this->statusCodeResponse(
+                            HttpStatusCode::INTERNAL_SERVER_ERROR
+                        );
+                    }
+
+                    $obj = new Object();
+                    $auth = new Object();
+
+                    $auth->username = $user->getUsername();
+                    $auth->series = $authToken->getSeries();
+                    $auth->token = $authToken->getToken();
+                    $obj->auth = $auth;
+
+                    return $this->jsonResponse($obj);
                 }
             }
 
@@ -49,7 +74,26 @@ class SessionController extends ControllerBase
     public function deauthenticateAction()
     {
         if ($this->request->isDelete()) {
-            $this->session->remove("auth");
+            $data = $this->getJsonRequest();
+
+            $username = $data->username;
+            $series = $data->series;
+            $token = $data->token;
+
+            $user = User::findFirstByUsername($username);
+
+            $authToken = AuthToken::findFirst(array(
+                "conditions" => "user_id = :user_id: and series = :series: and token = :token:",
+                "bind" => array(
+                    "user_id" => $user->getId(),
+                    "series" => $series,
+                    "token" => $token,
+                )
+            ));
+
+            if ($authToken) {
+                $authToken->delete();
+            }
         }
     }
 

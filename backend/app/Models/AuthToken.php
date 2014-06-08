@@ -80,7 +80,7 @@ class AuthToken extends Model
      * @param string $expirary_date
      * @return $this
      */
-    public function setExpirationDate($expirary_date)
+    public function setExpirationDate($expiration_date)
     {
         $this->expiration_date = $expiration_date;
 
@@ -159,7 +159,7 @@ class AuthToken extends Model
             "id" => "id",
             "series" => "series",
             "token" => "token",
-            "expirary_date" => "expirary_date",
+            "expiration_date" => "expiration_date",
             "user_id" => "user_id"
         );
     }

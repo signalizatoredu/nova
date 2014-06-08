@@ -2,6 +2,7 @@
 
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\DI\FactoryDefault;
+use Phalcon\Logger\Adapter\File as LoggerAdapter;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\Url as UrlResolver;
@@ -93,4 +94,9 @@ $di->set("session", function () {
     $session->start();
 
     return $session;
+});
+
+// Logger
+$di->set("logger", function () use ($config) {
+    return new LoggerAdapter($config->application->logsDir . "/debug.log");
 });
