@@ -57,12 +57,10 @@ class Security extends Plugin
 
     public function beforeDispatch(Event $event, Dispatcher $dispatcher)
     {
-        $auth = $this->session->get("auth");
-
-        if (!$auth) {
-            $role = "guest";
-        } else {
+        if ($this->auth->validateAuthHeaders()) {
             $role = "user";
+        } else {
+            $role = "guest";
         }
 
         $controller = $dispatcher->getControllerName();

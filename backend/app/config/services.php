@@ -10,6 +10,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
+use Nova\Plugins\Auth;
 use Nova\Plugins\Security;
 
 // The FactoryDefault Dependency Injector automatically register the
@@ -94,6 +95,11 @@ $di->set("session", function () {
     $session->start();
 
     return $session;
+});
+
+// Auth
+$di->set("auth", function () {
+    return new Auth();
 });
 
 // Logger

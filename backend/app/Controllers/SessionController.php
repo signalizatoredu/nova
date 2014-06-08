@@ -115,11 +115,10 @@ class SessionController extends ControllerBase
                 $user->setUsername($data->username);
                 $user->setPassword($this->security->hash($data->password));
 
-                // Fix this shit.
-                $user->setCreateTime("0000-00-00");
-
                 if (!$user->save()) {
-                    // Log error here
+                    foreach ($authToken->getMessages() as $message) {
+                        $this->logger->log("Error when saving User: " . $message);
+                    }
 
                     return $this->statusCodeResponse(
                         HttpStatusCode::UNPROCESSABLE_ENTITY,
