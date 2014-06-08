@@ -69,11 +69,8 @@ class MovieController extends ControllerBase
                     $movie->save();
                     $movies[] = $movie;
                 }
-
             }
-
         }
-
 
         return $this->jsonResponse($movies);
     }
