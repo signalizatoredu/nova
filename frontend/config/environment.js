@@ -1,4 +1,3 @@
-/* global require, module */
 module.exports = function(environment) {
   var ENV = {
     baseURL: '/',
