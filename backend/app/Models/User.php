@@ -2,6 +2,8 @@
 
 namespace Nova\Models;
 
+use Phalcon\Db\RawValue;
+
 class User extends Model
 {
 
@@ -139,5 +141,10 @@ class User extends Model
         $this->hasMany("id", "Nova\Models\AuthToken", "user_id", array(
             "alias" => "AuthTokens"
         ));
+    }
+
+    public function beforeValidationOnCreate()
+    {
+        $this->create_time = new RawValue("default");
     }
 }
