@@ -9,14 +9,6 @@ use Nova\Object;
 
 class SessionController extends ControllerBase
 {
-    private function registerSession($user)
-    {
-        $this->session->set("auth", array(
-            "id" => $user->getId(),
-            "username" => $user->getUsername(),
-        ));
-    }
-
     public function authenticateAction()
     {
         if ($this->request->isPost()) {
