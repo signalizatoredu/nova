@@ -3,7 +3,7 @@
         "guest",
         "user"
     ],
-    "findAll": [
+    "find": [
         "guest",
         "user"
     ]
