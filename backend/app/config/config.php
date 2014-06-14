@@ -10,6 +10,7 @@ $config = new \Phalcon\Config(array(
         "cacheDir"       => __DIR__ . "/../../app/Cache/",
         "logsDir"        => __DIR__ . "/../../app/Logs/",
         "baseUri"        => "/",
+        "cryptSalt"      => "1b46a0d7342940b8839a6de1",
     ),
 ));
 

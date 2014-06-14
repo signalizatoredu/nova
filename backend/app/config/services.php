@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Crypt;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Logger\Adapter\File as LoggerAdapter;
@@ -100,6 +101,14 @@ $di->set("session", function () {
 // Auth
 $di->set("auth", function () use ($di) {
     return new AuthenticationProvider($di);
+});
+
+// Crypt
+$di->set("crypt", function() use ($config) {
+    $crypt = new Crypt();
+    $crypt->setKey($config->application->cryptSalt);
+
+    return $crypt;
 });
 
 // Logger
