@@ -135,7 +135,7 @@ class SessionAuthenticationProvider extends Injectable implements
 
     public function isAuthenticated()
     {
-        if ($this->session->get("auth") == null) {
+        if (!$this->session->has("auth")) {
             if ($this->cookies->has("token")) {
                 $credentials = explode(":", $token);
                 $this->authenticateWithToken(
@@ -146,6 +146,6 @@ class SessionAuthenticationProvider extends Injectable implements
             }
         }
 
-        return $this->session->get("auth") != null;
+        return $this->session->has("auth");
     }
 }
