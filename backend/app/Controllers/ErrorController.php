@@ -30,4 +30,16 @@ class ErrorController extends ControllerBase
             $message
         );
     }
+
+    public function unauthorizedAction()
+    {
+        $message = "Unauthorized. You don't have sufficient permissions to access "
+                 . $this->router->getRewriteUri()
+                 . " on this server.";
+
+        return $this->statusCodeResponse(
+            HttpStatusCode::UNAUTHORIZED,
+            $message
+        );
+    }
 }
