@@ -26,12 +26,12 @@ class SessionAuthenticationProvider extends Injectable implements
      *
      * @return AuthToken|boolean
      */
-    private function generateAuthToken($userId, AuthToken $authToken = null)
+    private function generateAuthToken(User $user, AuthToken $authToken = null)
     {
         if ($authToken == null) {
             $authToken = new AuthToken();
 
-            $authToken->setUserId($userId);
+            $authToken->setUserId($user->getId());
             $authToken->setSeries(AuthToken::generateUuid());
         }
 
@@ -40,7 +40,7 @@ class SessionAuthenticationProvider extends Injectable implements
         $date = new \DateTime("now", new \DateTimeZone("UTC"));
         $date->add(\DateInterval::createFromDateString("+4 weeks"));
 
-        $authToken->setExpirationDate($date->format('Y-m-d H:i:s'));
+        $authToken->setExpirationDate($date->format("Y-m-d H:i:s"));
 
         if (!$authToken->save()) {
             foreach ($authToken->getMessages() as $message) {
@@ -53,8 +53,26 @@ class SessionAuthenticationProvider extends Injectable implements
         return $authToken;
     }
 
+    private function setAuthTokenCookie(User $user, AuthToken $authToken)
+    {
+        $token = $user->getUsername() . ":"
+               . $authToken->getSeries() . ":"
+               . $authToken->getToken();
+
+        $timestamp = \DateTime::createFromFormat(
+            "Y-m-d H:i:s",
+            $authToken->getExpirationDate()
+        )->getTimestamp();
+
+        $this->cookies->set("token", $token, $timestamp);
+    }
+
     private function destroySession()
     {
+        if ($this->cookies->has("token")) {
+            $this->cookies->get("token")->delete();
+        }
+
         $this->session->remove("auth");
         $this->session->destroy();
     }
@@ -74,13 +92,8 @@ class SessionAuthenticationProvider extends Injectable implements
         if ($user) {
             if ($this->security->checkHash($password, $user->getPassword())) {
                 if ($remember) {
-                    $authToken = $this->generateAuthToken($user->getId());
-
-                    $token = $authToken->getUserId() . ":"
-                           . $authToken->getSeries() . ":"
-                           . $authToken->getToken();
-
-                    $this->cookies->set("token", $token, $authToken->getExpirationDate());
+                    $authToken = $this->generateAuthToken($user);
+                    $this->setAuthTokenCookie($user, $authToken);
                 }
 
                 $this->registerSession($user);
@@ -101,15 +114,17 @@ class SessionAuthenticationProvider extends Injectable implements
         }
 
         $authToken = AuthToken::findFirst(array(
-            "conditions" => "user_id = :user_id: and series = :series:",
+            "conditions" => "user_id = :user_id: AND series = :series:",
             "bind" => array(
-                "user_id" => $userId,
+                "user_id" => $user->getId(),
                 "series" => $series,
             )
         ));
 
         if ($authToken) {
             if ($authToken->getToken() == $token) {
+                $authToken = $this->generateAuthToken($user, $authToken);
+                $this->setAuthTokenCookie($user, $authToken);
                 $this->registerSession($user);
 
                 return true;
@@ -119,6 +134,8 @@ class SessionAuthenticationProvider extends Injectable implements
             // TODO: Delete all user related sessions
             $authToken->delete();
         }
+
+        $this->destroySession();
 
         return false;
     }
@@ -137,6 +154,7 @@ class SessionAuthenticationProvider extends Injectable implements
     {
         if (!$this->session->has("auth")) {
             if ($this->cookies->has("token")) {
+                $token = trim($this->cookies->get("token"));
                 $credentials = explode(":", $token);
                 $this->authenticateWithToken(
                     $credentials[0],
