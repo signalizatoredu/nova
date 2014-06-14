@@ -7,16 +7,23 @@ $router->removeExtraSlashes(true);
 
 // Add default route
 $router->add("/", array(
+    "namespace" => "Nova\Controllers",
     "controller" => "index",
     "action" => "index",
-    "namespace" => "Nova\Controllers",
 ));
 
 // Add 404 route
 $router->notFound(array(
+    "namespace" => "Nova\Controllers",
     "controller" => "error",
     "action" => "notFound",
+));
+
+// Add CORS OPTIONS route
+$router->addOptions("/:params", array(
     "namespace" => "Nova\Controllers",
+    "controller" => "index",
+    "action" => "cors",
 ));
 
 $router->mount(new \Nova\Routes\DirectoryRoutes());

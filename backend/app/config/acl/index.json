@@ -2,5 +2,8 @@
     "index": [
         "user",
         "guest"
+    ],
+    "cors": [
+        "*"
     ]
 }
