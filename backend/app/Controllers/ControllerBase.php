@@ -53,7 +53,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         $this->view->disable();
 
-        $response = new HttpResponse();
+        $response = $this->response;
         $response->setContentType($image->getMime());
         $response->setContent($image->render());
 
@@ -64,7 +64,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         $this->view->disable();
 
-        $response = new HttpResponse();
+        $response = $this->response;
         $response->setContentType("application/json", "utf-8");
         $response->setJsonContent($data, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
 
@@ -73,6 +73,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         }
 
         // Temporary fix, find a better place for this
+        $response->setHeader("Access-Control-Allow-Credentials", "true");
         $response->setHeader("Access-Control-Allow-Origin", "*");
 
         return $response;
@@ -82,7 +83,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         $this->view->disable();
 
-        $response = new HttpResponse();
+        $response = $this->response;
         $response->setStatusCode($statusCode, HttpStatusCode::getMessage($statusCode));
 
         if ($message == null) {
