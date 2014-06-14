@@ -16,42 +16,17 @@ class SessionController extends ControllerBase
 
             $username = $data->username;
             $password = $data->password;
+            $remember = $data->remember;
 
-            $user = User::findFirstByUsername($username);
+            if ($this->auth->authenticate($username, $password, $remember)) {
+                $obj = new Object();
+                $auth = new Object();
 
-            if ($user) {
-                if ($this->security->checkHash($password, $user->getPassword())) {
-                    $authToken = new AuthToken();
+                $auth->username = $username;
+                $auth->authenticated = true;
+                $obj->auth = $auth;
 
-                    $authToken->setUserId($user->getId());
-                    $authToken->setSeries(AuthToken::generateUuid());
-                    $authToken->setToken(AuthToken::generateUuid());
-
-                    $date = new \DateTime("now", new \DateTimeZone("UTC"));
-                    $date->add(\DateInterval::createFromDateString("+20 minutes"));
-
-                    $authToken->setExpirationDate($date->format('Y-m-d H:i:s'));
-
-                    if (!$authToken->save()) {
-                        foreach ($authToken->getMessages() as $message) {
-                            $this->logger->log("Error when saving AuthToken: " . $message);
-                        }
-
-                        return $this->statusCodeResponse(
-                            HttpStatusCode::INTERNAL_SERVER_ERROR
-                        );
-                    }
-
-                    $obj = new Object();
-                    $auth = new Object();
-
-                    $auth->username = $user->getUsername();
-                    $auth->series = $authToken->getSeries();
-                    $auth->token = $authToken->getToken();
-                    $obj->auth = $auth;
-
-                    return $this->jsonResponse($obj);
-                }
+                return $this->jsonResponse($obj);
             }
 
             return $this->statusCodeResponse(
@@ -66,26 +41,7 @@ class SessionController extends ControllerBase
     public function deauthenticateAction()
     {
         if ($this->request->isDelete()) {
-            $data = $this->getJsonRequest();
-
-            $username = $data->username;
-            $series = $data->series;
-            $token = $data->token;
-
-            $user = User::findFirstByUsername($username);
-
-            $authToken = AuthToken::findFirst(array(
-                "conditions" => "user_id = :user_id: and series = :series: and token = :token:",
-                "bind" => array(
-                    "user_id" => $user->getId(),
-                    "series" => $series,
-                    "token" => $token,
-                )
-            ));
-
-            if ($authToken) {
-                $authToken->delete();
-            }
+            $this->auth->deauthenticate();
         }
     }
 

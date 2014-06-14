@@ -10,8 +10,8 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
-use Nova\Plugins\Auth;
 use Nova\Plugins\Security;
+use Nova\Security\SessionAuthenticationProvider as AuthenticationProvider;
 
 // The FactoryDefault Dependency Injector automatically register the
 // right services providing a full stack framework
@@ -98,8 +98,8 @@ $di->set("session", function () {
 });
 
 // Auth
-$di->set("auth", function () {
-    return new Auth();
+$di->set("auth", function () use ($di) {
+    return new AuthenticationProvider($di);
 });
 
 // Logger
