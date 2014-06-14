@@ -72,7 +72,7 @@ class Security extends Plugin
         if ($allowed != Acl::ALLOW) {
             $dispatcher->forward(array(
                 "controller" => "error",
-                "action" => "forbidden"
+                "action" => "unauthorized"
             ));
 
             return false;
