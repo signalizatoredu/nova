@@ -12,6 +12,8 @@ use Nova\Object;
 class SessionAuthenticationProvider extends Injectable implements
     AuthenticationProviderInterface
 {
+    private $rememberMeToken;
+
     public function __construct($dependencyInjector)
     {
         $this->_dependecyInjector = $dependencyInjector;
@@ -65,6 +67,20 @@ class SessionAuthenticationProvider extends Injectable implements
         )->getTimestamp();
 
         $this->cookies->set("token", $token, $timestamp);
+    }
+
+    private function getRememberMeAuthToken()
+    {
+        if ($this->rememberMeToken == null) {
+            if ($this->cookies->has("token")) {
+                $token = trim($this->cookies->get("token"));
+                $this->rememberMeToken = explode(":", $token);
+
+                return $this->rememberMeToken;
+            }
+        }
+
+        return $this->rememberMeToken;
     }
 
     private function destroySession()
@@ -150,20 +166,46 @@ class SessionAuthenticationProvider extends Injectable implements
         return $this->session->get("auth")["id"];
     }
 
-    public function isAuthenticated()
+    public function getRememberMeIdentification()
     {
-        if (!$this->session->has("auth")) {
-            if ($this->cookies->has("token")) {
-                $token = trim($this->cookies->get("token"));
-                $credentials = explode(":", $token);
-                $this->authenticateWithToken(
-                    $credentials[0],
-                    $credentials[1],
-                    $credentials[2]
-                );
-            }
+        $identification = null;
+
+        if (($token = $this->getRememberMeAuthToken()) != null) {
+            $identification = $token[0];
         }
 
+        return $identification;
+    }
+
+    public function getRememberMeSeries()
+    {
+        $series = null;
+
+        if (($token = $this->getRememberMeAuthToken()) != null) {
+            $series = $token[1];
+        }
+
+        return $series;
+    }
+
+    public function getRememberMeToken()
+    {
+        $token = null;
+
+        if (($token = $this->getRememberMeAuthToken()) != null) {
+            $token = $token[2];
+        }
+
+        return $token;
+    }
+
+    public function hasRememberMeToken()
+    {
+        return $this->getRememberMeAuthToken() != null;
+    }
+
+    public function isAuthenticated()
+    {
         return $this->session->has("auth");
     }
 }

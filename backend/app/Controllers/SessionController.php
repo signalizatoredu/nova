@@ -30,7 +30,7 @@ class SessionController extends ControllerBase
             }
 
             return $this->statusCodeResponse(
-                HttpStatusCode::FORBIDDEN,
+                HttpStatusCode::UNAUTHORIZED,
                 "Wrong username or password."
             );
         }

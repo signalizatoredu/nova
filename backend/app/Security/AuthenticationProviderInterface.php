@@ -43,6 +43,34 @@ interface AuthenticationProviderInterface
     public function getAuthenticatedUserId();
 
     /**
+     * Get the identification for the remember me token
+     *
+     * @return string
+     */
+    public function getRememberMeIdentification();
+
+    /**
+     * Get the series for the remember me token
+     *
+     * @return string
+     */
+    public function getRememberMeSeries();
+
+    /**
+     * Get the token for the remember me token
+     *
+     * @return string
+     */
+    public function getRememberMeToken();
+
+    /**
+     * Check if a remember me token is provided
+     *
+     * @return boolean
+     */
+    public function hasRememberMeToken();
+
+    /**
      * Check if the current request is authenticated
      *
      * @return boolean

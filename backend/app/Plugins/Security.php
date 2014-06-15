@@ -57,10 +57,22 @@ class Security extends Plugin
 
     public function beforeDispatch(Event $event, Dispatcher $dispatcher)
     {
+        $role = "guest";
+
+        // If the user isn't authenticated try to do a login by a remember
+        // me token if it exist.
+        if (!$this->auth->isAuthenticated()) {
+            if ($this->auth->hasRememberMeToken()) {
+                $this->auth->authenticateWithToken(
+                    $this->auth->getRememberMeIdentification(),
+                    $this->auth->getRememberMeSeries(),
+                    $this->auth->getRememberMeToken()
+                );
+            }
+        }
+
         if ($this->auth->isAuthenticated()) {
             $role = "user";
-        } else {
-            $role = "guest";
         }
 
         $controller = $dispatcher->getControllerName();
