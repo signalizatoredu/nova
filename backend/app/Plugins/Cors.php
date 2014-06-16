@@ -15,7 +15,7 @@ class Cors extends Injectable
 
     public function getWhitelist()
     {
-        if (isset($this->persistent->corsWhitelist)) {
+        if (!isset($this->persistent->corsWhitelist)) {
             $whitelist = new JsonConfig(__DIR__ . "/../config/whitelist.json");
 
             $this->persistent->corsWhitelist = $whitelist->whitelist;

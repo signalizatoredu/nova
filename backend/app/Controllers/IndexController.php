@@ -13,7 +13,7 @@ class IndexController extends ControllerBase
     {
         $response = $this->jsonResponse(null);
 
-        $this->setOptionsHeaders();
+        $this->cors->setOptionsHeaders($response);
 
         return $response;
     }
