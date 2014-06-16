@@ -61,5 +61,7 @@ class DirectoryController extends ControllerBase
         }
 
         $directory->delete();
+
+        return $this->jsonResponse();
     }
 }
