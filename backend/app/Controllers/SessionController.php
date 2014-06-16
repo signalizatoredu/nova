@@ -45,6 +45,11 @@ class SessionController extends ControllerBase
         }
     }
 
+    public function verifyAction()
+    {
+        return $this->jsonResponse();
+    }
+
     public function registerAction()
     {
         if ($this->request->isPost()) {
