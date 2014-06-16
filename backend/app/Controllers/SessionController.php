@@ -43,6 +43,8 @@ class SessionController extends ControllerBase
         if ($this->request->isDelete()) {
             $this->auth->deauthenticate();
         }
+
+        return $this->jsonResponse();
     }
 
     public function verifyAction()
