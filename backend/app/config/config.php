@@ -1,6 +1,8 @@
 <?php
 
-$config = new \Phalcon\Config(array(
+use Phalcon\Config;
+
+$config = new Config(array(
     "application" => array(
         "controllersDir" => __DIR__ . "/../../app/Controllers/",
         "modelsDir"      => __DIR__ . "/../../app/Models/",

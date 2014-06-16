@@ -24,5 +24,9 @@ class SessionRoutes extends \Phalcon\Mvc\Router\Group
         $this->addPost("/register", array(
             "action" => "register"
         ));
+
+        $this->addPost("/verify", array(
+            "action" => "verify"
+        ));
     }
 }

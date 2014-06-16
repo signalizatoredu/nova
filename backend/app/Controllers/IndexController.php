@@ -13,8 +13,7 @@ class IndexController extends ControllerBase
     {
         $response = $this->jsonResponse(null);
 
-        $response->setHeader("Access-Control-Allow-Headers", "Content-Type");
-        $response->setHeader("Access-Control-Allow-Methods", "DELETE, GET, POST, PUT");
+        $this->setOptionsHeaders();
 
         return $response;
     }

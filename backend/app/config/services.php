@@ -11,6 +11,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
+use Nova\Plugins\Cors;
 use Nova\Plugins\Security;
 use Nova\Security\SessionAuthenticationProvider as AuthenticationProvider;
 
@@ -103,8 +104,13 @@ $di->set("auth", function () use ($di) {
     return new AuthenticationProvider($di);
 });
 
+// Cors
+$di->set("cors", function () use ($di) {
+    return new Cors($di);
+});
+
 // Crypt
-$di->set("crypt", function() use ($config) {
+$di->set("crypt", function () use ($config) {
     $crypt = new Crypt();
     $crypt->setKey($config->application->cryptSalt);
 

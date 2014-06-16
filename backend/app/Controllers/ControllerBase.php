@@ -73,8 +73,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         }
 
         // Temporary fix, find a better place for this
-        $response->setHeader("Access-Control-Allow-Credentials", "true");
-        $response->setHeader("Access-Control-Allow-Origin", "*");
+        $this->cors->setHeaders($response);
 
         return $response;
     }
