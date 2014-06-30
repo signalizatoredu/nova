@@ -72,9 +72,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             $response->setStatusCode($statusCode, HttpStatusCode::getMessage($statusCode));
         }
 
-        // Temporary fix, find a better place for this
-        $this->cors->setHeaders($response);
-
         return $response;
     }
 

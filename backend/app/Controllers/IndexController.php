@@ -8,13 +8,4 @@ class IndexController extends ControllerBase
     {
 
     }
-
-    public function corsAction()
-    {
-        $response = $this->jsonResponse(null);
-
-        $this->cors->setOptionsHeaders($response);
-
-        return $response;
-    }
 }

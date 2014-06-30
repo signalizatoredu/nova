@@ -19,13 +19,6 @@ $router->notFound(array(
     "action" => "notFound",
 ));
 
-// Add CORS OPTIONS route
-$router->addOptions("/:params", array(
-    "namespace" => "Nova\Controllers",
-    "controller" => "index",
-    "action" => "cors",
-));
-
 $router->mount(new \Nova\Routes\DirectoryRoutes());
 $router->mount(new \Nova\Routes\DirectoryTypeRoutes());
 $router->mount(new \Nova\Routes\MovieRoutes());

@@ -31,9 +31,16 @@ $di->set("dispatcher", function () use ($di) {
 
     $eventsManager = $di->getShared("eventsManager");
 
+    $cors = new Cors($di);
+
+    $cors->setAllowedHeaders(array("Content-Type"));
+    $cors->useCredentials(true);
+    $cors->setMaxAge(60);
+
     $security = new Security($di);
 
     // Listen for events
+    $eventsManager->attach("dispatch", $cors);
     $eventsManager->attach("dispatch", $security);
 
     $dispatcher = new Dispatcher();
@@ -102,11 +109,6 @@ $di->set("session", function () {
 // Auth
 $di->set("auth", function () use ($di) {
     return new AuthenticationProvider($di);
-});
-
-// Cors
-$di->set("cors", function () use ($di) {
-    return new Cors($di);
 });
 
 // Crypt
