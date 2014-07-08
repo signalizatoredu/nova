@@ -2,6 +2,7 @@
 
 var Application = require('nova/app')['default'];
 var Router = require('nova/router')['default'];
+import Ember from 'ember';
 
 export default function startApp(attrs) {
   var App;

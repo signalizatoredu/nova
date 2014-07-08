@@ -1,10 +1,15 @@
+/* jshint node: true */
+
 module.exports = function(environment) {
   var ENV = {
+    environment: environment,
     baseURL: '/',
     locationType: 'auto',
-    FEATURES: {
-      // Here you can enable experimental features on an ember canary build
-      // e.g. 'with-controller': true
+    EmberENV: {
+      FEATURES: {
+        // Here you can enable experimental features on an ember canary build
+        // e.g. 'with-controller': true
+      }
     },
 
     APP: {
@@ -17,8 +22,8 @@ module.exports = function(environment) {
     }
   };
 
-  // Load API configurations
   var apiSettings = require('../config/api');
+  ENV.API.HOST = apiSettings[environment].host;
 
   if (environment === 'development') {
     // LOG_MODULE_RESOLVER is needed for pre-1.6.0
@@ -30,11 +35,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.API.HOST = apiSettings[environment].host;
   }
 
   if (environment === 'production') {
-    ENV.API.HOST = apiSettings[environment].host;
+
   }
 
   return ENV;

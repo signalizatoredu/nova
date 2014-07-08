@@ -9,15 +9,18 @@
 
     {{BASE_TAG}}
 
+    <link rel="stylesheet" href="assets/vendor.css">
     <link rel="stylesheet" href="assets/nova.css">
   </head>
   <body>
     <script>
-      window.ENV = {{ENV}};
+      window.NovaENV = {{ENV}};
+      window.EmberENV = window.NovaENV.EmberENV;
     </script>
+    <script src="assets/vendor.js"></script>
     <script src="assets/nova.js"></script>
     <script>
-      window.Nova = require('nova/app')['default'].create(ENV.APP);
+      window.Nova = require('nova/app')['default'].create(NovaENV.APP);
     </script>
   </body>
 </html>
