@@ -10,7 +10,6 @@ Router.map(function() {
         this.resource('movie', { path: '/:movie_id' });
     });
     this.route('login');
-  this.route('test');
 });
 
 export default Router;
