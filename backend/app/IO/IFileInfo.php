@@ -69,6 +69,13 @@ interface IFileInfo
     public function getParentPath();
 
     /**
+     * Check if the file exists
+     *
+     * @return boolean
+     */
+    public function exists();
+
+    /**
      * Check if the file is a directory
      *
      * @return boolean

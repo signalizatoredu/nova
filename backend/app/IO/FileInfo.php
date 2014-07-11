@@ -14,11 +14,11 @@ class FileInfo implements IFileInfo
      */
     public function __construct($filename)
     {
-        $this->fileInfo = new \SplFileInfo($filename);
-
-        if (!file_exists($filename) && !$this->isLink()) {
-            throw new \Exception("The file or directory $filename don't exist.");
+        if (empty($filename)) {
+            throw new \Exception("No filename provided.");
         }
+
+        $this->fileInfo = new \SplFileInfo($filename);
     }
 
     /**
@@ -129,6 +129,16 @@ class FileInfo implements IFileInfo
         }
 
         return $parentPath;
+    }
+
+    /**
+     * Check if the file exists
+     *
+     * @return boolean
+     */
+    public function exists()
+    {
+        return file_exists($this->getPath());
     }
 
     /**
