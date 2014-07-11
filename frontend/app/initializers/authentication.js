@@ -1,17 +1,16 @@
-import Ember from 'ember';
-import authenticator from '../authenticators/api';
-import authorizer from '../authorizers/api';
+import Authenticator from 'nova/authenticators/api';
+import Authorizer from 'nova/authorizers/api';
+
+window.ENV = window.ENV || {};
+window.ENV['simple-auth'] = {
+    authorizer: 'authorizer:api',
+    crossOriginWhitelist: [NovaENV.API.HOST]
+};
 
 export default {
     name: 'authentication',
-    initialize: function(container, application) {
-        container.register('authenticator:api', authenticator);
-        container.register('authorizer:api', authorizer);
-
-        Ember.SimpleAuth.setup(container, application, {
-            authorizerFactory: 'authorizer:api',
-            crossOriginWhitelist: [NovaENV.API.HOST],
-            storeFactory: 'ember-simple-auth-session-store:local-storage'
-        });
+    initialize: function(container) {
+        container.register('authenticator:api', Authenticator);
+        container.register('authorizer:api', Authorizer);
     }
 };
