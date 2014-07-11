@@ -17,14 +17,10 @@ export default AuthenticatorBase.extend({
 
             that.makeRequest(config).then(
                 function() {
-                    Ember.run(function() {
-                        resolve();
-                    });
+                    resolve();
                 },
                 function() {
-                    Ember.run(function() {
-                        reject(new Error());
-                    });
+                    reject(new Error());
                 }
             );
         });
@@ -44,14 +40,10 @@ export default AuthenticatorBase.extend({
 
             that.makeRequest(config).then(
                 function(response) {
-                    Ember.run(function() {
-                        resolve(response.auth);
-                    });
+                    resolve(response.auth);
                 },
                 function(xhr) {
-                    Ember.run(function() {
-                        reject(xhr.responseJSON || xhr.responseText);
-                    });
+                    reject(xhr.responseJSON || xhr.responseText);
                 }
             );
         });
@@ -70,9 +62,10 @@ export default AuthenticatorBase.extend({
     },
 
     makeRequest: function(config) {
-        if (!Ember.SimpleAuth.Utils.isSecureUrl(this.serverTokenEndpoint)) {
-            Ember.Logger.warn('Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.');
-        }
+        // Temporarily disabled since the import doesn't work
+        //if (!isSecureUrl(this.serverTokenEndpoint)) {
+        //    Ember.Logger.warn('Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.');
+        //}
 
         return Ember.$.ajax({
             data: JSON.stringify(config.data ? config.data : {}),
