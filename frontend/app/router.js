@@ -1,15 +1,16 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 var Router = Ember.Router.extend({
     location: NovaENV.locationType
 });
 
 Router.map(function() {
-    this.resource("settings");
-    this.resource("movies", function() {
-        this.resource("movie", { path: "/:movie_id" });
+    this.resource('settings');
+    this.resource('movies', function() {
+        this.resource('movie', { path: '/:movie_id' });
     });
-    this.route("login");
+    this.route('login');
+  this.route('test');
 });
 
 export default Router;

@@ -1,6 +1,8 @@
-export default DS.Model.extend({
-    path: DS.attr("string"),
+import DS from 'ember-data';
 
-    directoryType: DS.belongsTo("directoryType"),
-    movies: DS.hasMany("movie")
+export default DS.Model.extend({
+    path: DS.attr('string'),
+
+    directoryType: DS.belongsTo('directoryType'),
+    movies: DS.hasMany('movie')
 });

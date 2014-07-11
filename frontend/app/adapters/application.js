@@ -1,3 +1,5 @@
+import DS from 'ember-data';
+
 export default DS.ActiveModelAdapter.extend({
-    host: ENV.API.HOST
+    host: NovaENV.API.HOST
 });

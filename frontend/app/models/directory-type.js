@@ -1,5 +1,7 @@
-export default DS.Model.extend({
-    type: DS.attr("string"),
+import DS from 'ember-data';
 
-    directories: DS.hasMany("directory")
+export default DS.Model.extend({
+    type: DS.attr('string'),
+
+    directories: DS.hasMany('directory')
 });

@@ -1,13 +1,18 @@
-export default Ember.SimpleAuth.Authenticators.Base.extend({
-    serverTokenEndpoint: ENV.API.HOST + "/authentication",
+import Ember from 'Ember';
+import AuthenticatorBase from 'simple-auth/authenticators/base';
+
+var ENV = NovaENV;
+
+export default AuthenticatorBase.extend({
+    serverTokenEndpoint: ENV.API.HOST + '/authentication',
 
     restore: function() {
         var that = this;
 
         return new Ember.RSVP.Promise(function(resolve, reject) {
             var config = {
-                url: ENV.API.HOST + "/verify",
-                type: "POST"
+                url: ENV.API.HOST + '/verify',
+                type: 'POST'
             };
 
             that.makeRequest(config).then(
@@ -57,7 +62,7 @@ export default Ember.SimpleAuth.Authenticators.Base.extend({
 
         return new Ember.RSVP.Promise(function(resolve) {
             that.makeRequest({
-                type: "DELETE",
+                type: 'DELETE',
             }).then(function() {
                 resolve();
             });
@@ -66,16 +71,16 @@ export default Ember.SimpleAuth.Authenticators.Base.extend({
 
     makeRequest: function(config) {
         if (!Ember.SimpleAuth.Utils.isSecureUrl(this.serverTokenEndpoint)) {
-            Ember.Logger.warn("Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.");
+            Ember.Logger.warn('Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.');
         }
 
         return Ember.$.ajax({
             data: JSON.stringify(config.data ? config.data : {}),
-            dataType: "json",
-            type: config.type ? config.type : "POST",
+            dataType: 'json',
+            type: config.type ? config.type : 'POST',
             url: config.url ? config.url : this.serverTokenEndpoint,
             beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("Accept", settings.accepts.json);
+                xhr.setRequestHeader('Accept', settings.accepts.json);
             }
         });
     }

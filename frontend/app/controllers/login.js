@@ -1,5 +1,7 @@
+import Ember from 'ember';
+
 export default Ember.Controller.extend(Ember.SimpleAuth.AuthenticationControllerMixin, {
-    authenticatorFactory: "authenticator:api",
+    authenticatorFactory: 'authenticator:api',
 
     identification: null,
     password: null,
@@ -7,8 +9,8 @@ export default Ember.Controller.extend(Ember.SimpleAuth.AuthenticationController
 
     actions: {
         authenticate: function() {
-            var data = this.getProperties("identification", "password", "remember");
-            this.set("password", null);
+            var data = this.getProperties('identification', 'password', 'remember');
+            this.set('password', null);
             this._super(data);
         }
     }
