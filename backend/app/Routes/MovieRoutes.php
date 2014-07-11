@@ -20,6 +20,10 @@ class MovieRoutes extends \Phalcon\Mvc\Router\Group
             "id" => 1
         ));
 
+        $this->addPost("/scan", array(
+            "action" => "scan"
+        ));
+
         $this->addPost("/:int/scrape", array(
             "action" => "scrape",
             "id" => 1

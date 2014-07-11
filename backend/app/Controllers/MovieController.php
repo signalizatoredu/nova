@@ -44,6 +44,8 @@ class MovieController extends ControllerBase
     {
         $directoryType = DirectoryType::findFirstByType("Movie");
 
+        $this->clean();
+
         $movies = array();
 
         foreach ($directoryType->directory as $directory) {
@@ -85,6 +87,18 @@ class MovieController extends ControllerBase
         $scraper->scrape($movie, $this->request->getPost("options"));
 
         return $this->jsonResponse($movie);
+    }
+
+    private function clean()
+    {
+        $movies = Movie::find();
+
+        foreach ($movies as $movie) {
+            $file = new \Nova\IO\FileInfo($movie->getPath());
+            if (!$file->exists()) {
+                $movie->delete();
+            }
+        }
     }
 
     private function recursiveDirectoryWalk(\Nova\IO\FileInfo $directory, $dataArray)

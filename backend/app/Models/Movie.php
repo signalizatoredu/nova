@@ -55,12 +55,14 @@ class Movie extends Model
     protected function getDirectory()
     {
         $info = new FileInfo($this->getRealPath());
+
         return $info->getParentPath();
     }
 
     protected function getFilename()
     {
         $info = new FileInfo($this->getRealPath());
+
         return $info->getFilenameWithoutExtension();
     }
 
@@ -79,11 +81,19 @@ class Movie extends Model
         }
 
         if ($this->hasBackdrop()) {
-            $this->backdrop = sprintf("%s/%s-fanart.jpg", $this->getDirectory(), $this->getFilename());
+            $this->backdrop = sprintf(
+                "%s/%s-fanart.jpg",
+                $this->getDirectory(),
+                $this->getFilename()
+            );
         }
 
         if ($this->hasPoster()) {
-            $this->poster = sprintf("%s/%s-poster.jpg", $this->getDirectory(), $this->getFilename());
+            $this->poster = sprintf(
+                "%s/%s-poster.jpg",
+                $this->getDirectory(),
+                $this->getFilename()
+            );
         }
     }
 
@@ -98,34 +108,30 @@ class Movie extends Model
 
     public function hasNfo()
     {
-        try {
-            new FileInfo($this->getNfoPath());
-        } catch (\Exception $e) {
-            return false;
-        }
+        $file = new FileInfo($this->getNfoPath());
 
-        return true;
+        return $file->exists();
     }
 
     public function hasBackdrop()
     {
-        try {
-            new FileInfo(sprintf("%s/%s-fanart.jpg", $this->getDirectory(), $this->getFilename()));
-        } catch (\Exception $e) {
-            return false;
-        }
+        $file = new FileInfo(sprintf(
+            "%s/%s-fanart.jpg",
+            $this->getDirectory(),
+            $this->getFilename()
+        ));
 
-        return true;
+        return $file->exists();
     }
 
     public function hasPoster()
     {
-        try {
-            new FileInfo(sprintf("%s/%s-poster.jpg", $this->getDirectory(), $this->getFilename()));
-        } catch (\Exception $e) {
-            return false;
-        }
+        $file = new FileInfo(sprintf(
+            "%s/%s-poster.jpg",
+            $this->getDirectory(),
+            $this->getFilename()
+        ));
 
-        return true;
+        return $file->exists();
     }
 }
