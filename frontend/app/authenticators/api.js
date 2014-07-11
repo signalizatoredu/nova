@@ -1,4 +1,4 @@
-import Ember from 'Ember';
+import Ember from 'ember';
 import AuthenticatorBase from 'simple-auth/authenticators/base';
 
 var ENV = NovaENV;
