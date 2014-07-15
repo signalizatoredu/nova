@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <parser>
+        <target>./build/</target>
+    </parser>
+    <transformer>
+        <target>./</target>
+    </transformer>
+    <files>
+        <directory>./code/backend/app/</directory>
+        <ignore>config/</ignore>
+        <ignore>Cache/</ignore>
+        <ignore>migrations/</ignore>
+    </files>
+</phpdoc>
