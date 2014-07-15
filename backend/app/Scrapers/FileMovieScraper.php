@@ -2,6 +2,8 @@
 
 namespace Nova\Scrapers;
 
+use SplFileInfo as FileInfo;
+
 use Nova\Encoders\IEncoder;
 use Nova\Encoders\XmlMovieEncoder;
 use Nova\Models\Movie;
@@ -22,7 +24,8 @@ class FileMovieScraper extends MovieScraper
 
     public function initialize(Movie $movie)
     {
-        $fileStorage = new FileStorage($this->encoder, $movie->getNfoPath());
+        $file = new FileInfo($movie->getNfoPath());
+        $fileStorage = new FileStorage($this->encoder, $file);
         $this->movie = $fileStorage->read();
     }
 
