@@ -3,8 +3,9 @@
 namespace Nova\Models;
 
 use Nova\IO\FileInfo;
+use Nova\Scrapers\FileMovieScraper;
 
-class Movie extends Model
+class Movie extends ModelBase
 {
     protected $path;
 
@@ -74,7 +75,7 @@ class Movie extends Model
     public function afterFetch()
     {
         if ($this->hasNfo()) {
-            $scraper = new \Nova\Scrapers\FileMovieScraper();
+            $scraper = new FileMovieScraper();
             $scraper->scrape($this);
         } else {
             $this->title = $this->getFilename();

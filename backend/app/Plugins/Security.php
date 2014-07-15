@@ -2,6 +2,8 @@
 
 namespace Nova\Plugins;
 
+use GlobIterator;
+
 use Phalcon\Acl;
 use Phalcon\Acl\Adapter\Memory as AclAdapter;
 use Phalcon\Acl\Resource as AclResource;
@@ -34,7 +36,7 @@ class Security extends Plugin
 
             // Read each json acl file
             // Oh.. and O(n^3) complexity. Great.
-            foreach (new \GlobIterator(__DIR__ . "/../config/acl/*.json") as $file) {
+            foreach (new GlobIterator(__DIR__ . "/../config/acl/*.json") as $file) {
                 $resource = new AclResource($file->getBasename(".json"));
 
                 $string = file_get_contents($file->getPathname());

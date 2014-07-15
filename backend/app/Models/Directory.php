@@ -2,7 +2,7 @@
 
 namespace Nova\Models;
 
-class Directory extends Model
+class Directory extends ModelBase
 {
     /**
      * @var integer

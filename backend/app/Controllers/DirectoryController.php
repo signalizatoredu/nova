@@ -22,7 +22,7 @@ class DirectoryController extends ControllerBase
         $directory = Directory::findFirst($id);
 
         if (!$directory) {
-            return $this->forward("error/not_found");
+            return $this->forward("error/notFound");
         }
 
         $data = new Object();
@@ -47,7 +47,7 @@ class DirectoryController extends ControllerBase
 
     public function saveAction($id)
     {
-        return $this->forward("error/not_found");
+        return $this->forward("error/notFound");
     }
 
     public function deleteAction($id)
@@ -57,7 +57,7 @@ class DirectoryController extends ControllerBase
         $directory = Directory::findFirst($id);
 
         if (!$directory) {
-            return $this->forward("error/not_found");
+            return $this->forward("error/notFound");
         }
 
         $directory->delete();

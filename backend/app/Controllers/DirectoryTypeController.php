@@ -22,7 +22,7 @@ class DirectoryTypeController extends ControllerBase
         $directoryType = DirectoryType::findFirst($id);
 
         if (!$directoryType) {
-            return $this->forward("error/not_found");
+            return $this->forward("error/notFound");
         }
 
         $data = new Object();

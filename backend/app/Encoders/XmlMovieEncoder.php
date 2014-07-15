@@ -2,6 +2,10 @@
 
 namespace Nova\Encoders;
 
+use InvalidArgumentException;
+use RuntimeException;
+use XMLWriter;
+
 use Nova\Encoders\IEncoder;
 use Nova\Models\Model;
 use Nova\Models\Actor;
@@ -12,55 +16,55 @@ class XmlMovieEncoder implements IEncoder
     public function encode($data)
     {
         if (!($data instanceof Movie)) {
-            throw new \InvalidArgumentException('Input data should be of object type Movie');
+            throw new InvalidArgumentException("Input data should be of object type Movie");
         }
 
-        $writer = new \XMLWriter();
+        $writer = new XMLWriter();
         $writer->openMemory();
-        $writer->startDocument('1.0', 'UTF-8', 'yes');
+        $writer->startDocument("1.0", "UTF-8", "yes");
         $writer->setIndent(true);
 
-        $writer->startElement('movie');
-        $writer->writeElement('title', $data->title);
-        $writer->writeElement('originaltitle', $data->original_title);
-        $writer->writeElement('sorttitle', $data->sort_title);
-        $writer->writeElement('set', $data->Collection);
-        $writer->writeElement('rating', $data->rating);
-        $writer->writeElement('year', $data->year);
-        $writer->writeElement('outline', $data->outline);
-        $writer->writeElement('plot', $data->plot);
-        $writer->writeElement('tagline', $data->tagline);
-        $writer->writeElement('runtime', $data->runtime);
-        $writer->writeElement('mpaa', $data->certification);
-        $writer->writeElement('id', $data->imdb_id);
-        $writer->writeElement('tmdbid', $data->tmdb_id);
-        $writer->writeElement('trailer', $data->tailer);
+        $writer->startElement("movie");
+        $writer->writeElement("title", $data->title);
+        $writer->writeElement("originaltitle", $data->original_title);
+        $writer->writeElement("sorttitle", $data->sort_title);
+        $writer->writeElement("set", $data->Collection);
+        $writer->writeElement("rating", $data->rating);
+        $writer->writeElement("year", $data->year);
+        $writer->writeElement("outline", $data->outline);
+        $writer->writeElement("plot", $data->plot);
+        $writer->writeElement("tagline", $data->tagline);
+        $writer->writeElement("runtime", $data->runtime);
+        $writer->writeElement("mpaa", $data->certification);
+        $writer->writeElement("id", $data->imdb_id);
+        $writer->writeElement("tmdbid", $data->tmdb_id);
+        $writer->writeElement("trailer", $data->tailer);
 
         foreach ($data->genres as $genre) {
-            $writer->writeElement('genre', $genre);
+            $writer->writeElement("genre", $genre);
         }
 
         foreach ($data->studios as $studio) {
-            $writer->writeElement('studio', $studio);
+            $writer->writeElement("studio", $studio);
         }
 
         foreach ($data->countries as $country) {
-            $writer->writeElement('country', $country);
+            $writer->writeElement("country", $country);
         }
 
         foreach ($data->credits as $credit) {
-            $writer->writeElement('credits', $credit);
+            $writer->writeElement("credits", $credit);
         }
 
         foreach ($data->directors as $director) {
-            $writer->writeElement('director', $director);
+            $writer->writeElement("director", $director);
         }
 
         foreach ($data->actors as $actor) {
-            $writer->startElement('actor');
-            $writer->writeElement('name', $actor->name);
-            $writer->writeElement('role', $actor->role);
-            $writer->writeElement('thumb', $actor->thumb);
+            $writer->startElement("actor");
+            $writer->writeElement("name", $actor->name);
+            $writer->writeElement("role", $actor->role);
+            $writer->writeElement("thumb", $actor->thumb);
             $writer->endElement();
         }
 
@@ -72,12 +76,12 @@ class XmlMovieEncoder implements IEncoder
 
     public function decode($data)
     {
-        // TODO: Using Model won't work
+        // TODO: Using Model won"t work
         $movie = new Movie();
         $xml = simplexml_load_string($data);
 
         if ($xml === false) {
-            throw new \RuntimeException('Could not parse input as valid XML');
+            throw new RuntimeException("Could not parse input as valid XML");
         }
 
         if ($xml->title) {

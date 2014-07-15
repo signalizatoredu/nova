@@ -10,11 +10,11 @@ use Phalcon\Mvc\Dispatcher;
 
 class Cors extends Injectable
 {
-    private $_allowedHeaders = array();
-    private $_exposedHeaders = array();
-    private $_exposeHeaders = false;
-    private $_maxAge = false;
-    private $_useCredentials = false;
+    private $allowedHeaders = array();
+    private $exposedHeaders = array();
+    private $exposeHeaders = false;
+    private $maxAge = false;
+    private $useCredentials = false;
 
     public function __construct($dependencyInjector)
     {
@@ -47,7 +47,7 @@ class Cors extends Injectable
      */
     public function exposeHeaders($exposeHeaders)
     {
-        $this->_exposeHeaders = $exposeHeaders;
+        $this->exposeHeaders = $exposeHeaders;
     }
 
     /**
@@ -58,7 +58,7 @@ class Cors extends Injectable
      */
     public function useCredentials($useCredentials)
     {
-        $this->_useCredentials = $useCredentials;
+        $this->useCredentials = $useCredentials;
     }
 
     /**
@@ -69,7 +69,7 @@ class Cors extends Injectable
      */
     public function setAllowedHeaders(array $headers)
     {
-        $this->_allowedHeaders = $headers;
+        $this->allowedHeaders = $headers;
     }
 
     /**
@@ -80,7 +80,7 @@ class Cors extends Injectable
      */
     public function setExposedHeaders(array $headers)
     {
-        $this->_exposedHeaders = $headers;
+        $this->exposedHeaders = $headers;
     }
 
     /**
@@ -91,7 +91,7 @@ class Cors extends Injectable
      */
     public function setMaxAge($seconds)
     {
-        $this->_maxAge = $seconds;
+        $this->maxAge = $seconds;
     }
 
     /**
@@ -103,7 +103,7 @@ class Cors extends Injectable
      */
     public function addAllowCredentialsHeader(HttpResponse $response)
     {
-        if ($this->_useCredentials) {
+        if ($this->useCredentials) {
             $response->setHeader("Access-Control-Allow-Credentials", "true");
         }
 
@@ -118,8 +118,8 @@ class Cors extends Injectable
      */
     public function addAllowHeadersHeader(HttpResponse $response)
     {
-        if (!empty($this->_allowedHeaders)) {
-            $headers = implode($this->_allowedHeaders, ",");
+        if (!empty($this->allowedHeaders)) {
+            $headers = implode($this->allowedHeaders, ",");
             $response->setHeader("Access-Control-Allow-Headers", $headers);
         }
 
@@ -170,8 +170,8 @@ class Cors extends Injectable
      */
     public function addExposeHeadersHeader(HttpResponse $response)
     {
-        if ($this->_exposeHeaders && !empty($this->_exposedHeaders)) {
-            $headers = implode(",", $this->_exposedHeaders);
+        if ($this->exposeHeaders && !empty($this->exposedHeaders)) {
+            $headers = implode(",", $this->exposedHeaders);
             $response->setHeader("Access-Control-Expose-Headers", $headers);
         }
 
@@ -187,8 +187,8 @@ class Cors extends Injectable
      */
     public function addMaxAgeHeader(HttpResponse $response)
     {
-        if ($this->_maxAge !== false) {
-            $response->setHeader("Access-Control-Max-Age", $this->_maxAge);
+        if ($this->maxAge !== false) {
+            $response->setHeader("Access-Control-Max-Age", $this->maxAge);
         }
 
         return $response;

@@ -2,7 +2,7 @@
 
 namespace Nova\Models;
 
-class Actor extends Model
+class Actor extends ModelBase
 {
     public $name;
     public $role;

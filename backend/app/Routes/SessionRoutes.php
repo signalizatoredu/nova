@@ -2,7 +2,7 @@
 
 namespace Nova\Routes;
 
-class SessionRoutes extends \Phalcon\Mvc\Router\Group
+class SessionRoutes extends RouterGroupBase
 {
     public function initialize()
     {

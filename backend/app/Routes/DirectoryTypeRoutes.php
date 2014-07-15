@@ -2,7 +2,7 @@
 
 namespace Nova\Routes;
 
-class DirectoryTypeRoutes extends \Phalcon\Mvc\Router\Group
+class DirectoryTypeRoutes extends RouterGroupBase
 {
     public function initialize()
     {

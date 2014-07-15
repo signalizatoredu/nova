@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Models\Services;
+namespace Nova\Apis;
 
 interface ITmdbApi
 {

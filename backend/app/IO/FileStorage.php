@@ -2,6 +2,9 @@
 
 namespace Nova\IO;
 
+use Exception;
+use UnexpectedValueException;
+
 use Nova\Encoders\IEncoder;
 
 class FileStorage
@@ -26,7 +29,7 @@ class FileStorage
         if (file_exists($file)) {
             // Check if it's not a file or not readable
             if (!is_file($file) || !is_readable($file) || !is_writable($file)) {
-                throw new \UnexpectedValueException("The file $file is not read- and writeable.");
+                throw new UnexpectedValueException("The file $file is not read- and writeable.");
             }
         }
 
@@ -45,8 +48,8 @@ class FileStorage
             fwrite($file, pack("CCC", 0xEF, 0xBB, 0xBF));
             fwrite($file, $this->encoder->encode($data));
             fclose($file);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -54,8 +57,8 @@ class FileStorage
     {
         try {
             return $this->encoder->decode(@file_get_contents($this->file));
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 }

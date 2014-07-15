@@ -2,7 +2,7 @@
 
 namespace Nova\Routes;
 
-class MovieRoutes extends \Phalcon\Mvc\Router\Group
+class MovieRoutes extends RouterGroupBase
 {
     public function initialize()
     {

@@ -2,7 +2,7 @@
 
 namespace Nova\Models;
 
-class AuthToken extends Model
+class AuthToken extends ModelBase
 {
 
     /**

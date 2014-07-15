@@ -18,7 +18,7 @@ class ImageController extends ControllerBase
         $movie = Movie::findFirst($id);
 
         if (!$movie) {
-            return $this->forward("error/not_found");
+            return $this->forward("error/notFound");
         }
 
         $image = new \Phalcon\Image\Adapter\GD($movie->poster);

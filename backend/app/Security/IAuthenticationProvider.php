@@ -2,7 +2,7 @@
 
 namespace Nova\Security;
 
-interface AuthenticationProviderInterface
+interface IAuthenticationProvider
 {
     public function __construct($dependencyInjector);
 

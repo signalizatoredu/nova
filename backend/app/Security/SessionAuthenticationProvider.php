@@ -2,6 +2,10 @@
 
 namespace Nova\Security;
 
+use DateInterval;
+use DateTime;
+use DateTimeZone;
+
 use Phalcon\DI\Injectable;
 
 use Nova\Http\StatusCode as HttpStatusCode;
@@ -10,7 +14,7 @@ use Nova\Models\User;
 use Nova\Object;
 
 class SessionAuthenticationProvider extends Injectable implements
-    AuthenticationProviderInterface
+    IAuthenticationProvider
 {
     private $rememberMeToken;
 
@@ -39,8 +43,8 @@ class SessionAuthenticationProvider extends Injectable implements
 
         $authToken->setToken(AuthToken::generateUuid());
 
-        $date = new \DateTime("now", new \DateTimeZone("UTC"));
-        $date->add(\DateInterval::createFromDateString("+4 weeks"));
+        $date = new DateTime("now", new DateTimeZone("UTC"));
+        $date->add(DateInterval::createFromDateString("+4 weeks"));
 
         $authToken->setExpirationDate($date->format("Y-m-d H:i:s"));
 
@@ -61,7 +65,7 @@ class SessionAuthenticationProvider extends Injectable implements
                . $authToken->getSeries() . ":"
                . $authToken->getToken();
 
-        $timestamp = \DateTime::createFromFormat(
+        $timestamp = DateTime::createFromFormat(
             "Y-m-d H:i:s",
             $authToken->getExpirationDate()
         )->getTimestamp();

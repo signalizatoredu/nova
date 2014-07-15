@@ -2,6 +2,9 @@
 
 namespace Nova\IO;
 
+use Exception;
+use SplFileInfo;
+
 class FileInfo implements IFileInfo
 {
     private $fileInfo;
@@ -15,10 +18,10 @@ class FileInfo implements IFileInfo
     public function __construct($filename)
     {
         if (empty($filename)) {
-            throw new \Exception("No filename provided.");
+            throw new Exception("No filename provided.");
         }
 
-        $this->fileInfo = new \SplFileInfo($filename);
+        $this->fileInfo = new SplFileInfo($filename);
     }
 
     /**
@@ -37,7 +40,7 @@ class FileInfo implements IFileInfo
             foreach ($subObjects as $child) {
                 if ($child != "." && $child != "..") {
                     $realPath = sprintf("%s/%s", $this->getRealPath(), $child);
-                    $children[] = new FileInfo($realPath);
+                    $children[] = new self($realPath);
                 }
             }
         }

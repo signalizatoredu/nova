@@ -2,22 +2,24 @@
 
 namespace Nova\Apis;
 
+use TMDb as TmdbApi;
+
 use Nova\Models\Actor;
 use Nova\Models\Movie;
 
 class TmdbApiAdapter implements ITmdbApi
 {
-    const IMAGE_TYPE_BACKDROP = 'backdrop';
-    const IMAGE_TYPE_PROFILE = 'profile';
-    const IMAGE_TYPE_POSTER = 'poster';
-    const IMAGE_SIZE_ORIGINAL = 'original';
+    const IMAGE_TYPE_BACKDROP = "backdrop";
+    const IMAGE_TYPE_PROFILE = "profile";
+    const IMAGE_TYPE_POSTER = "poster";
+    const IMAGE_SIZE_ORIGINAL = "original";
 
     private $tmdb;
     private $movie;
 
     public function __construct($apiKey)
     {
-        $this->tmdb = new \TMDb($apiKey, 'en', true);
+        $this->tmdb = new TmdbApi($apiKey, "en", true);
     }
 
     private function createMovie($data)
@@ -25,22 +27,22 @@ class TmdbApiAdapter implements ITmdbApi
         $movie = new Movie();
 
         // Array keys
-        $nameKey = 'name';
-        $titleKey = 'title';
-        $originalTitleKey = 'original_title';
-        $collectionKey = 'belongs_to_collection';
-        $ratingKey = 'vote_average';
-        $yearKey = 'release_date';
-        $outlineKey = 'overview';
-        $taglineKey = 'tagline';
-        $runtimeKey = 'runtime';
-        $imdbIdKey = 'imdb_id';
-        $tmdbIdKey = 'id';
-        $genresKey = 'genres';
-        $studiosKey = 'production_companies';
-        $countriesKey = 'production_countries';
-        $backdropKey = 'backdrop_path';
-        $posterKey = 'poster_path';
+        $nameKey = "name";
+        $titleKey = "title";
+        $originalTitleKey = "original_title";
+        $collectionKey = "belongs_to_collection";
+        $ratingKey = "vote_average";
+        $yearKey = "release_date";
+        $outlineKey = "overview";
+        $taglineKey = "tagline";
+        $runtimeKey = "runtime";
+        $imdbIdKey = "imdb_id";
+        $tmdbIdKey = "id";
+        $genresKey = "genres";
+        $studiosKey = "production_companies";
+        $countriesKey = "production_countries";
+        $backdropKey = "backdrop_path";
+        $posterKey = "poster_path";
 
         if (array_key_exists($titleKey, $data)) {
             $movie->setTitle($data[$titleKey]);
@@ -117,7 +119,7 @@ class TmdbApiAdapter implements ITmdbApi
             $countries = array();
 
             foreach ($data[$countriesKey] as $country) {
-                // TODO: Check if it's the name or the iso code of the country that should be used
+                // TODO: Check if it"s the name or the iso code of the country that should be used
                 if (isset($country[$nameKey])) {
                     $countries[] = $country[$nameKey];
                 }
@@ -129,7 +131,7 @@ class TmdbApiAdapter implements ITmdbApi
         if (array_key_exists($backdropKey, $data)) {
             $backdrops = array();
 
-            $backdrops[] = $this->getImagePath($data[$backdropKey], \TMDb::IMAGE_BACKDROP);
+            $backdrops[] = $this->getImagePath($data[$backdropKey], TmdbApi::IMAGE_BACKDROP);
 
             $movie->setBackdrops($backdrops);
         }
@@ -137,7 +139,7 @@ class TmdbApiAdapter implements ITmdbApi
         if (array_key_exists($posterKey, $data)) {
             $posters = array();
 
-            $posters[] = $this->getImagePath($data[$posterKey], \TMDb::IMAGE_POSTER);
+            $posters[] = $this->getImagePath($data[$posterKey], TmdbApi::IMAGE_POSTER);
 
             $movie->setPosters($posters);
         }
@@ -155,13 +157,13 @@ class TmdbApiAdapter implements ITmdbApi
             $cast = $this->getMovieCast($id);
             $certification = $this->getMovieCertification($id);
             $images = $this->getMovieImages($id);
-            $backdrops = $images['backdrops'];
-            $posters = $images['posters'];
+            $backdrops = $images["backdrops"];
+            $posters = $images["posters"];
             $trailers = $this->getMovieTrailers($id);
 
-            $movie->setActors($cast['actors']);
-            $movie->setCredits($cast['credits']);
-            $movie->setDirectors($cast['directors']);
+            $movie->setActors($cast["actors"]);
+            $movie->setCredits($cast["credits"]);
+            $movie->setDirectors($cast["directors"]);
             $movie->setCertification($certification);
 
             if (!empty($trailers)) {
@@ -190,12 +192,12 @@ class TmdbApiAdapter implements ITmdbApi
         $data = null;
 
         // Array keys
-        $castKey = 'cast';
-        $crewKey = 'crew';
-        $nameKey = 'name';
-        $characterKey = 'character';
-        $thumbKey = 'profile_path';
-        $jobKey = 'job';
+        $castKey = "cast";
+        $crewKey = "crew";
+        $nameKey = "name";
+        $characterKey = "character";
+        $thumbKey = "profile_path";
+        $jobKey = "job";
 
         $data = $this->tmdb->getMovieCast($id);
 
@@ -212,7 +214,7 @@ class TmdbApiAdapter implements ITmdbApi
                 }
 
                 if (isset($thumbKey, $cast)) {
-                    $thumb = $this->getImagePath($cast[$thumbKey], \TMDb::IMAGE_PROFILE);
+                    $thumb = $this->getImagePath($cast[$thumbKey], TmdbApi::IMAGE_PROFILE);
                     $actor->setThumb($thumb);
                 }
 
@@ -226,16 +228,16 @@ class TmdbApiAdapter implements ITmdbApi
                     $job = $crew[$jobKey];
 
                     // TODO: Fix credits/writers recognizing
-                    if ($job !== 'Writer' && $job !== 'Director') {
+                    if ($job !== "Writer" && $job !== "Director") {
                         continue;
                     }
 
                     if (array_key_exists($nameKey, $cast)) {
                         $name = $crew[$nameKey];
 
-                        if ($job === 'Director') {
+                        if ($job === "Director") {
                             $directors[] = $name;
-                        } elseif ($job === 'Writer') {
+                        } elseif ($job === "Writer") {
                             $credits[] = $name;
                         }
                     }
@@ -244,9 +246,9 @@ class TmdbApiAdapter implements ITmdbApi
         }
 
         return array(
-            'actors' => $actors,
-            'credits' => $credits,
-            'directors' => $directors,
+            "actors" => $actors,
+            "credits" => $credits,
+            "directors" => $directors,
         );
     }
 
@@ -254,10 +256,10 @@ class TmdbApiAdapter implements ITmdbApi
     {
         $certification = null;
 
-        $countriesKey = 'countries';
-        $isoKey = 'iso_3166_1';
-        $certificationKey = 'certification';
-        $mpaaCountryCode = 'US';
+        $countriesKey = "countries";
+        $isoKey = "iso_3166_1";
+        $certificationKey = "certification";
+        $mpaaCountryCode = "US";
 
         $info = $this->tmdb->getMovieReleases($id);
 
@@ -288,16 +290,16 @@ class TmdbApiAdapter implements ITmdbApi
         $posters = array();
 
         // Array keys
-        $backdropsKey = 'backdrops';
-        $postersKey = 'posters';
-        $pathKey = 'file_path';
+        $backdropsKey = "backdrops";
+        $postersKey = "posters";
+        $pathKey = "file_path";
 
         $data = $this->tmdb->getMovieImages($id);
 
         if (isset($data[$backdropsKey])) {
             foreach ($data[$backdropsKey] as $image) {
                 if (isset($image[$pathKey])) {
-                    $backdrops[] = $this->getImagePath($image[$pathKey], \TMDb::IMAGE_BACKDROP);
+                    $backdrops[] = $this->getImagePath($image[$pathKey], TmdbApi::IMAGE_BACKDROP);
                 }
             }
         }
@@ -305,14 +307,14 @@ class TmdbApiAdapter implements ITmdbApi
         if (isset($data[$postersKey])) {
             foreach ($data[$postersKey] as $image) {
                 if (isset($image[$pathKey])) {
-                    $posters[] = $this->getImagePath($image[$pathKey], \TMDb::IMAGE_POSTER);
+                    $posters[] = $this->getImagePath($image[$pathKey], TmdbApi::IMAGE_POSTER);
                 }
             }
         }
 
         return array(
-            'backdrops' => $backdrops,
-            'posters' => $posters,
+            "backdrops" => $backdrops,
+            "posters" => $posters,
         );
     }
 
@@ -322,13 +324,13 @@ class TmdbApiAdapter implements ITmdbApi
         $data = $this->tmdb->getMovieTrailers($id);
 
         // Array keys
-        $youtubeKey = 'youtube';
-        $sourceKey = 'source';
+        $youtubeKey = "youtube";
+        $sourceKey = "source";
 
         if (isset($data[$youtubeKey])) {
             foreach ($data[$youtubeKey] as $video) {
                 if (isset($video[$sourceKey])) {
-                    $trailers[] = 'http://www.youtube.com/watch?v=' . $video[$sourceKey];
+                    $trailers[] = "http://www.youtube.com/watch?v=" . $video[$sourceKey];
                 }
             }
         }
@@ -341,7 +343,7 @@ class TmdbApiAdapter implements ITmdbApi
         $movies = array();
         $results = $this->tmdb->searchMovie($query);
 
-        $results = $results['results'];
+        $results = $results["results"];
 
         foreach ($results as $result) {
             $movies[] = $this->createMovie($result);

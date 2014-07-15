@@ -4,9 +4,8 @@ namespace Nova\Models;
 
 use Phalcon\Db\RawValue;
 
-class User extends Model
+class User extends ModelBase
 {
-
     /**
      *
      * @var integer
