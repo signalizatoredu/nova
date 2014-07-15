@@ -2,10 +2,10 @@
 
 namespace Nova\Services;
 
-use Exception;
+use DirectoryIterator;
+use InvalidArgumentException;
+use SplFileInfo as FileInfo;
 
-use Nova\IO\FileInfo;
-use Nova\IO\IFileInfo;
 use Nova\Models\Directory;
 use Nova\Models\DirectoryType;
 use Nova\Models\Movie;
@@ -43,7 +43,8 @@ class MovieService implements IMovieService
 
         foreach ($movies as $movie) {
             $file = new FileInfo($movie->getPath());
-            if (!$file->exists()) {
+
+            if (!$file->getRealPath()) {
                 $movie->delete();
             }
         }
@@ -107,21 +108,21 @@ class MovieService implements IMovieService
      *
      * @throws Exception
      *
-     * @param IFileInfo $directory
+     * @param FileInfo $directory
      * @param array $fileList
      * @param boolean $recursive Optional: Do a recursive scan. Defaults to true.
      *
      * @return array
      */
-    private function findDirectoryMediaFiles(IFileInfo $directory, array $videoFiles, $recursive = true)
+    private function findDirectoryMediaFiles(FileInfo $directory, array $videoFiles, $recursive = true)
     {
         if (!$directory->isDir()) {
-            throw new Exception("IFileInfo instance was exptected to be a directory.");
+            throw new InvalidArgumentException("FileInfo instance was exptected to be a directory.");
         }
 
-        $children = $directory->getChildren();
+        $directoryIterator = new DirectoryIterator($directory->getPathname());
 
-        foreach ($children as $child) {
+        foreach ($directoryIterator as $child) {
             if ($child->isDir() && $recursive) {
                 $videoFiles = $this->recursiveDirectoryWalk($child, $fileList);
             } else {

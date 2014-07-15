@@ -2,7 +2,8 @@
 
 namespace Nova\Models;
 
-use Nova\IO\FileInfo;
+use SplFileInfo as FileInfo;
+
 use Nova\Scrapers\FileMovieScraper;
 
 class Movie extends ModelBase
@@ -45,28 +46,6 @@ class Movie extends ModelBase
         return $this->path;
     }
 
-    private function getRealPath()
-    {
-        $path = $this->directory->path;
-        $path .= $this->getPath();
-
-        return $path;
-    }
-
-    protected function getDirectory()
-    {
-        $info = new FileInfo($this->getRealPath());
-
-        return $info->getParentPath();
-    }
-
-    protected function getFilename()
-    {
-        $info = new FileInfo($this->getRealPath());
-
-        return $info->getFilenameWithoutExtension();
-    }
-
     public function setPath($path)
     {
         $this->path = $path;
@@ -98,10 +77,6 @@ class Movie extends ModelBase
         }
     }
 
-    public function beforeSave()
-    {
-    }
-
     public function getNfoPath()
     {
         return sprintf("%s/%s.nfo", $this->getDirectory(), $this->getFilename());
@@ -111,7 +86,7 @@ class Movie extends ModelBase
     {
         $file = new FileInfo($this->getNfoPath());
 
-        return $file->exists();
+        return $file->getRealPath() !== false;
     }
 
     public function hasBackdrop()
@@ -122,7 +97,7 @@ class Movie extends ModelBase
             $this->getFilename()
         ));
 
-        return $file->exists();
+        return $file->getRealPath() !== false;
     }
 
     public function hasPoster()
@@ -133,6 +108,28 @@ class Movie extends ModelBase
             $this->getFilename()
         ));
 
-        return $file->exists();
+        return $file->getRealPath() !== false;
+    }
+
+    private function getFullPath()
+    {
+        $path = $this->directory->path;
+        $path .= $this->getPath();
+
+        return $path;
+    }
+
+    private function getDirectory()
+    {
+        $info = new FileInfo($this->getFullPath());
+
+        return $info->getPath();
+    }
+
+    private function getFilename()
+    {
+        $info = new FileInfo($this->getFullPath());
+
+        return $info->getBasename("." . $info->getExtension());
     }
 }
