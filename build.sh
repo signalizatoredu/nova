@@ -1,5 +1,6 @@
 #!/bin/sh
 
+rm -rf build/
 rm -rf classes/
 rm -rf css/
 rm -rf files/
@@ -7,7 +8,6 @@ rm -rf graphs/
 rm -rf images/
 rm -rf js/
 rm -rf namespaces/
-rm -rf output/
 rm -rf reports/
 rm -f index.html
 rm -rf code/

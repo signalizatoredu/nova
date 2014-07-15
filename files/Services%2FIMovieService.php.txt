@@ -62,7 +62,7 @@ interface IMovieService
      * @param Movie $movie The movie to be scraped
      * @param array $options Options of which to use when scraping
      *
-     * @return \Nova\Models\Movie
+     * @return Movie
      */
     public function scrapeMovie(Movie $movie, array $options);
 }
