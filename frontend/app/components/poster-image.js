@@ -1,39 +1,54 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    attributeBindings: ['style'],
+    classNames: ['image'],
     height: 200,
     width: 133,
     poster: null,
+    showLoader: true,
 
-    loader: function() {
-        var width = this.get('width'),
-            height = this.get('height'),
-            poster = this.get('poster');
+    imageUrl: function() {
+        var width = this.get('width');
+        var height = this.get('height');
+        var poster = this.get('poster');
 
-        var img = this.$('img:first');
-        var loader = this.$('.loader:first');
+        return NovaENV.API.HOST + '/movies/' + poster + '/poster/' + width + '/' + height;
+    }.property(),
 
-        var realUrl = NovaENV.API.HOST + '/movies/' + poster + '/poster/' + width + '/' + height;
+    loadError: function() {
+        this.set('showLoader', false);
+    },
 
-        img.load(function() {
-            loader.fadeOut('slow', function() {
-            });
-        }.bind(this));
-
-        img.attr('src', realUrl);
-    }.on('didInsertElement'),
-
-    url: '',
-
-    posterurl: function() {
-        var url = this.get('url');
-
-        return url;
-    }.property('url'),
+    loadSuccess: function() {
+        this.set('showLoader', false);
+    },
 
     style: function() {
         var width = this.get('width');
         var height = this.get('height');
+
         return 'height:' + height + 'px;width:' + width + 'px;';
-    }.property('height')
+    }.property('height'),
+
+    didInsertElement: function() {
+        var img = this.$('img:first');
+
+        if (!img.complete) {
+            img.on('error', function() {
+                this.trigger('loadError');
+            }.bind(this));
+
+            img.on('load', function() {
+                this.trigger('loadSuccess');
+            }.bind(this));
+        } else {
+            this.trigger('loadSuccess');
+        }
+    },
+
+    willDestroyElement: function() {
+        // Remove custom event listeners
+        this.$('img:first').off('error load');
+    }
 });

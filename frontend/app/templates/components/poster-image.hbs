@@ -1,4 +1,4 @@
-<div class="image" {{bind-attr style=style}}>
-    <span class="loader"></span>
-    <img {{bind-attr src=posterUrl}} {{bind-attr height=height}} {{bind-attr width=width}}>
-</div>
+{{#if showLoader}}
+<span class="loader"></span>
+{{/if}}
+<img {{bind-attr src=imageUrl}} {{bind-attr height=height}} {{bind-attr width=width}}>
