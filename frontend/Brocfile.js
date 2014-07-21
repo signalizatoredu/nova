@@ -17,4 +17,7 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
+// Import CSS
+app.import('vendor/normalize-css/normalize.css');
+
 module.exports = app.toTree();
