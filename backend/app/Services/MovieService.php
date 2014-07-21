@@ -17,13 +17,14 @@ class MovieService implements IMovieService
 {
     public function getMovies()
     {
-        $movies = Movie::find();
+        $movies = array();
 
-        foreach ($movies as $movie) {
+        foreach (Movie::find() as $movie) {
             $movie->afterFetch();
+            $movies[] = $movie;
         }
 
-        return $movies->toArray();
+        return $movies;
     }
 
     public function getMovieById($id)
