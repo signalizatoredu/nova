@@ -27,7 +27,7 @@ div.image {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: z($elements, image-loader);
 }
 
 .movies li h4 {

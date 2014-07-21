@@ -1,1 +1,7 @@
-@import 'main.scss';
+// Modules and Variables
+@import 'partials/base';
+
+// Partials
+@import 'partials/main';
+@import 'partials/menu';
+@import 'partials/movies';
